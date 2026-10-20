@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerFlow Analytics — real metrics on your job search: conversion rates, applications over time, and source breakdowns.">
+    <title>Analytics — CareerFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/design-system.css" rel="stylesheet">
+    <link href="css/pipeline.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== Sidebar ========== -->
+    <!-- ========== Sidebar ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+        <button type="button" class="sidebar-brand" id="sidebar-toggle" aria-label="CareerFlow, collapse sidebar" aria-expanded="true" title="CareerFlow — collapse sidebar">
+            <span class="sidebar-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h6V9H4zM14 18h6V4h-6z"/><path d="M10 13h4"/></svg></span>
+            <span class="sidebar-brand-name">CareerFlow</span><span class="sidebar-brand-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </span></button>
+        <nav class="sidebar-nav" aria-label="Main">
+
+            <div class="nav-group">
+              <div class="nav-group-title">Workspace</div>
+              
+                <a href="/dashboard" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg>
+                  <span>Overview</span>
+                </a>
+                <a href="/applications" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                  <span>Applications</span>
+                </a>
+                <a href="/pipeline" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg>
+                  <span>Pipeline</span>
+                </a>
+                <a href="/calendar" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  <span>Calendar</span>
+                </a>
+                <a href="/companies" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>
+                  <span>Companies</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Career</div>
+              
+                <a href="/interview-prep" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-3.5 7-9V5l-7-3-7 3v7c0 5.5 7 9 7 9z"/><path d="M9 11l2 2 4-4"/></svg>
+                  <span>Interview Prep</span>
+                </a>
+                <a href="/analytics" class="nav-item active" aria-current="page">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+                  <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Account</div>
+              
+                <a href="/settings" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 3 7.6V7a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-chip" id="user-chip" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false" style="width:100%;">
+                <span class="avatar" id="user-avatar">?</span>
+                <span class="sidebar-user-info flex-1 min-w-0 text-left">
+                    <span class="block text-sm font-medium truncate" id="user-name" style="color:#fff;">Loading…</span>
+                    <span class="block text-xs truncate" id="user-email" style="color:rgba(255,255,255,.66);"></span>
+                </span>
+                <span class="sidebar-user-info sidebar-caret" style="color:rgba(255,255,255,.4);flex:none;">
+                    <svg class="dropdown-caret" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </span>
+            </div>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ========== Header ========== -->
+    <!-- ========== Header ========== -->
+    <header class="header" id="app-header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <h1 class="header-title" id="page-title">Analytics</h1>
+        </div>
+        <div class="header-right" id="header-actions">
+            <span class="text-xs text-muted" id="data-range"></span>
+            <a href="/applications" class="btn btn-outline btn-sm">View Applications</a>
+        </div>
+    </header>
+
+    <main id="main" class="app-main">
+        <section class="page-header mb-6">
+            <h2 class="page-title">Analytics &amp; Insights</h2>
+            <p class="page-subtitle">Understand your job-search performance with real data from your applications.</p>
+        </section>
+
+        <div id="analytics-content">
+            <!-- Injected by JS -->
+        </div>
+    </main>
+
+    <script type="module" src="js/dropdown.js"></script>
+    <script type="module" src="js/app-shell.js"></script>
+    <script type="module">
+        import { api } from './js/api.js';
+        import { formatDate, escapeHtml, initials, showToast, parseDate, STATUSES, statusBadgeClass, icon } from './js/utils.js';
+        import { mountShell } from './js/app-shell.js';
+
+        // ---- State ----
+        let apps = [];
+        let summary = null;
+        const content = document.getElementById('analytics-content');
+
+        // ---- Init ----
+        document.addEventListener('DOMContentLoaded', () => {
+            mountShell({ active: 'analytics', title: 'Analytics' });
+            loadAnalytics();
+        });
+
+        async function loadAnalytics() {
+            content.innerHTML = `<div class="loading"><div class="spinner"></div><div class="loading-text">Calculating metrics&hellip;</div></div>`;
+            try {
+                // Metrics come from the server, which owns the definitions.
+                // The list is fetched only for the monthly series and date range.
+                const [summaryRes, listRes] = await Promise.all([
+                    api.getAnalyticsSummary(),
+                    api.getAllApplications()
+                ]);
+                summary = summaryRes.data;
+                apps = listRes.data || [];
+                renderAnalytics();
+            } catch (err) {
+                console.error('Failed to load analytics:', err);
+                content.innerHTML = emptyState('Unable to load analytics. Please check your connection.', 'error');
+                showToast('Failed to load analytics data.', 'error');
+            }
+        }
+
+        function renderAnalytics() {
+            const s = summary;
+            if (!s || !s.totalApplications) {
+                content.innerHTML = emptyState('No data to analyze yet. Add applications to unlock insights.', 'empty');
+                return;
+            }
+
+            const total = s.totalApplications;
+
+            // --- Core metrics: defined once, on the server ---
+            const applied = s.applied;
+            const interviewCount = s.interviewsScheduled;
+            const offerCount = s.offersReceived;
+            const rejectedCount = s.rejected;
+            const interviewRate = s.interviewConversionRate;
+            const offerRate = s.offerConversionRate;
+            const responseRate = s.responseRate;
+            const responded = s.responded;
+
+            // --- Time to interview (days between applicationDate and interviewDate) ---
+            const avgToInterview = s.averageDaysToInterview;
+            const interviewSample = s.averageDaysToInterviewSampleSize || 0;
+
+            // --- Follow-ups ---
+            const followupsSet = s.followUpsScheduled;
+            const followupsPastDue = s.followUpsPastDue;
+
+            // --- Counts by dimension (server-computed) ---
+            const byStatus = s.byStatus || {};
+            const bySource = s.bySource || {};
+            const byWorkMode = s.byWorkMode || {};
+            const byEmployment = s.byEmploymentType || {};
+            const byPriority = s.byPriority || {};
+
+            // --- Applications per month (last 6 months) ---
+            const monthly = applicationsPerMonth(apps, 6);
+
+            // --- Response breakdown (funnel) ---
+            const funnel = [
+                { label: 'Applied', count: applied, color: 'var(--status-applied)' },
+                { label: 'Assessment', count: byStatus.Assessment || 0, color: 'var(--status-assessment)' },
+                { label: 'Interview', count: interviewCount, color: 'var(--status-interview)' },
+                { label: 'Offer', count: offerCount, color: 'var(--status-offer)' },
+                { label: 'Rejected', count: rejectedCount, color: 'var(--status-rejected)' },
+            ];
+
+            const dateRange = getDateRange(apps);
+            document.getElementById('data-range').textContent = dateRange
+                ? `${dateRange.start} – ${dateRange.end}`
+                : '';
+
+            content.innerHTML = `
+                <!-- Headline metrics -->
+                <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));">
+                    ${metricCard('Total Applications', total, 'All records in your tracker', icon('analytics'), 'text-primary', 'bg-primary-light')}
+                    ${metricCard('Interview Rate', interviewRate === null ? '—' : interviewRate.toFixed(0) + '%', interviewRate === null ? 'No applied applications' : `${interviewCount} of ${applied} applied reached interview`, icon('target'), 'text-info', 'bg-info-light')}
+                    ${metricCard('Offer Rate', offerRate === null ? '—' : offerRate.toFixed(0) + '%', offerRate === null ? 'No applied applications' : `${offerCount} of ${applied} applied became offers`, icon('sparkles'), 'text-success', 'bg-success-light')}
+                    ${metricCard('Response Rate', responseRate === null ? '—' : responseRate.toFixed(0) + '%', responseRate === null ? 'No applied applications' : `${responded} of ${applied} got a response`, icon('mail'), 'text-warning', 'bg-warning-light')}
+                </div>
+
+                <div class="grid gap-6 mb-6" style="grid-template-columns: 1fr;">
+                    <!-- Applications over time -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Applications Over Time</h3>
+                            <span class="text-xs text-muted">Last 6 months</span>
+                        </div>
+                        <div class="card-body p-5">
+                            ${monthly.some(m => m.count > 0)
+                                ? barChart(monthly)
+                                : emptyChart('No application dates recorded yet.')}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-6 mb-6" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));">
+                    <!-- Funnel -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Stage Funnel</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            ${funnelChart(funnel)}
+                        </div>
+                    </div>
+
+                    <!-- Status distribution -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Status Distribution</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            ${donutChart(byStatus, total)}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-6 mb-6" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));">
+                    <!-- By source -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Applications by Job Source</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            ${horizontalBars(bySource, total, 'No source recorded.')}
+                        </div>
+                    </div>
+
+                    <!-- By work mode -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Applications by Work Mode</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            ${horizontalBars(byWorkMode, total, 'No work mode recorded.')}
+                        </div>
+                    </div>
+
+                    <!-- By employment type -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Applications by Employment Type</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            ${horizontalBars(byEmployment, total, 'No employment type recorded.')}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-6" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));">
+                    <!-- Timing metrics -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Timing &amp; Effort</h3>
+                        </div>
+                        <div class="card-body p-5 space-y-4">
+                            ${metricRow('Average time to interview', avgToInterview === null ? '—' : avgToInterview.toFixed(1) + ' days', avgToInterview === null ? 'No records with both application and interview dates' : `Based on ${interviewSample} application(s) with both dates`)}
+                            ${metricRow('Follow-ups scheduled', followupsSet, `Across ${total} application(s)`)}
+                            ${metricRow('Follow-ups past due', followupsPastDue, 'Follow-up date has passed')}
+                            ${metricRow('Active applications', s.inProgress, 'Currently in progress (Applied, Assessment, Interview)')}
+                        </div>
+                    </div>
+
+                    <!-- Priority breakdown -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold text-base">Priority Breakdown</h3>
+                        </div>
+                        <div class="card-body p-5">
+                            ${horizontalBars(byPriority, total, 'No priority recorded.')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top companies -->
+                <div class="card mt-6">
+                    <div class="card-header">
+                        <h3 class="font-semibold text-base">Top Companies by Application Volume</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        ${topCompanies()}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ---- Helper: applications per month ----
+        function applicationsPerMonth(list, months) {
+            const result = [];
+            const now = new Date();
+            for (let i = months - 1; i >= 0; i--) {
+                const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                result.push({
+                    key,
+                    label: d.toLocaleDateString(undefined, { month: 'short', year: '2-digit' }),
+                    count: 0
+                });
+            }
+            const index = Object.fromEntries(result.map((r, i) => [r.key, i]));
+            list.forEach(a => {
+                if (!a.applicationDate) return;
+                const d = parseDate(a.applicationDate);
+                if (!d) return;
+                const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                if (index[key] !== undefined) result[index[key]].count++;
+            });
+            return result;
+        }
+
+        // ---- Helper: date range ----
+        function getDateRange(list) {
+            const dates = list.filter(a => a.applicationDate).map(a => parseDate(a.applicationDate)).filter(Boolean);
+            if (!dates.length) return null;
+            const min = new Date(Math.min(...dates));
+            const max = new Date(Math.max(...dates));
+            return {
+                start: min.toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
+                end: max.toLocaleDateString(undefined, { month: 'short', year: 'numeric' })
+            };
+        }
+
+        // ---- Metric card ----
+        function metricCard(label, value, sub, icon, colorClass, bgClass) {
+            return `
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-content">
+                            <p class="stat-card-label">${escapeHtml(label)}</p>
+                            <p class="stat-card-value ${colorClass}">${escapeHtml(String(value))}</p>
+                            <p class="stat-card-sub">${escapeHtml(String(sub))}</p>
+                        </div>
+                        <div class="stat-card-icon ${bgClass}">${icon}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ---- Metric row ----
+        function metricRow(label, value, sub) {
+            return `
+                <div class="flex justify-between items-start gap-4 pb-3 border-b border-border" style="gap: var(--space-4);">
+                    <div>
+                        <div class="text-sm font-medium text-main">${escapeHtml(label)}</div>
+                        <div class="text-xs text-muted">${escapeHtml(String(sub))}</div>
+                    </div>
+                    <div class="text-base font-bold text-primary" style="white-space:nowrap;">${escapeHtml(String(value))}</div>
+                </div>
+            `;
+        }
+
+        // ---- Vertical bar chart (SVG) ----
+        function barChart(data) {
+            const max = Math.max(...data.map(d => d.count), 1);
+            const width = 640;
+            const height = 240;
+            const padL = 36, padR = 16, padT = 16, padB = 40;
+            const chartW = width - padL - padR;
+            const chartH = height - padT - padB;
+            const slot = chartW / data.length;
+            const barW = Math.min(slot * 0.55, 56);
+
+            let svg = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Applications submitted per month" style="width:100%;height:auto;font-family:var(--font-sans)">
+                <defs>
+                    <linearGradient id="anGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:var(--color-primary);stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:var(--color-accent);stop-opacity:1"/>
+                    </linearGradient>
+                </defs>`;
+
+            // Gridlines
+            for (let i = 0; i <= 4; i++) {
+                const y = padT + (chartH / 4) * i;
+                const val = Math.round(max - (max / 4) * i);
+                svg += `<line x1="${padL}" y1="${y}" x2="${width - padR}" y2="${y}" stroke="var(--color-border)" stroke-width="1" stroke-dasharray="3 3"/>
+                        <text x="${padL - 8}" y="${y + 4}" font-size="10" fill="var(--color-text-muted)" text-anchor="end">${val}</text>`;
+            }
+
+            data.forEach((d, i) => {
+                const barH = max > 0 ? (d.count / max) * chartH : 0;
+                const x = padL + slot * i + (slot - barW) / 2;
+                const y = padT + chartH - barH;
+                svg += `
+                    <g>
+                        <rect x="${x}" y="${y}" width="${barW}" height="${Math.max(barH, 0)}" rx="4" fill="url(#anGrad)">
+                            <title>${escapeHtml(d.label)}: ${d.count} application(s)</title>
+                        </rect>
+                        ${d.count > 0 ? `<text x="${x + barW / 2}" y="${y - 6}" font-size="11" font-weight="600" fill="var(--color-text-main)" text-anchor="middle">${d.count}</text>` : ''}
+                        <text x="${x + barW / 2}" y="${height - 16}" font-size="10" fill="var(--color-text-secondary)" text-anchor="middle">${escapeHtml(d.label)}</text>
+                    </g>`;
+            });
+
+            svg += `</svg>`;
+            return `<div class="chart-container" style="height:auto">${svg}</div>`;
+        }
+
+        // ---- Funnel chart ----
+        function funnelChart(stages) {
+            const max = Math.max(...stages.map(s => s.count), 1);
+            return stages.map(s => {
+                const pct = (s.count / max) * 100;
+                return `
+                    <div class="mb-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-medium text-main">${escapeHtml(s.label)}</span>
+                            <span class="text-sm font-semibold text-secondary">${s.count}</span>
+                        </div>
+                        <div style="height: 22px; background: var(--color-secondary-light); border-radius: var(--radius-sm); overflow: hidden;">
+                            <div style="height: 100%; width: ${pct}%; background: ${s.color}; border-radius: var(--radius-sm); transition: width var(--transition-base);"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('') + `<p class="text-xs text-muted mt-3">Bar length is relative to the largest stage. Counts are actual record totals.</p>`;
+        }
+
+        // ---- Donut chart (SVG) ----
+        function donutChart(byStatus, total) {
+            const entries = STATUSES.filter(s => byStatus[s]).map(s => ({ label: s, count: byStatus[s] }));
+            if (!entries.length) return emptyChart('No status data available.');
+
+            const size = 200;
+            const radius = 80;
+            const stroke = 28;
+            const circumference = 2 * Math.PI * radius;
+            let offset = 0;
+
+            const colors = {
+                Bookmarked: 'var(--status-bookmarked)',
+                Applied: 'var(--status-applied)',
+                Assessment: 'var(--status-assessment)',
+                Interview: 'var(--status-interview)',
+                Offer: 'var(--status-offer)',
+                Rejected: 'var(--status-rejected)',
+                Withdrawn: 'var(--status-withdrawn)'
+            };
+
+            let svg = `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="Distribution of applications by status" style="width:200px;height:200px;margin:0 auto;">
+                <circle cx="${size/2}" cy="${size/2}" r="${radius}" fill="none" stroke="var(--color-secondary-light)" stroke-width="${stroke}"/>`;
+
+            entries.forEach(e => {
+                const frac = e.count / total;
+                const dash = frac * circumference;
+                svg += `<circle cx="${size/2}" cy="${size/2}" r="${radius}" fill="none" stroke="${colors[e.label]}" stroke-width="${stroke}"
+                    stroke-dasharray="${dash} ${circumference - dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${size/2} ${size/2})">
+                    <title>${escapeHtml(e.label)}: ${e.count} (${Math.round(frac*100)}%)</title>
+                </circle>`;
+                offset += dash;
+            });
+
+            svg += `<text x="${size/2}" y="${size/2 - 4}" text-anchor="middle" font-size="30" font-weight="700" fill="var(--color-text-main)">${total}</text>
+                    <text x="${size/2}" y="${size/2 + 16}" text-anchor="middle" font-size="11" fill="var(--color-text-muted)">Applications</text>
+                </svg>`;
+
+            const legend = entries.map(e => `
+                <div class="flex items-center justify-between py-1">
+                    <div class="flex items-center gap-2">
+                        <span style="width:10px;height:10px;border-radius:3px;background:${colors[e.label]};display:inline-block;"></span>
+                        <span class="text-sm text-secondary">${escapeHtml(e.label)}</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-semibold text-main">${e.count}</span>
+                        <span class="text-xs text-muted" style="min-width:36px;text-align:right;">${Math.round((e.count/total)*100)}%</span>
+                    </div>
+                </div>
+            `).join('');
+
+            return `<div class="flex items-center gap-6 flex-wrap">${svg}<div class="flex-1" style="min-width:160px;">${legend}</div></div>`;
+        }
+
+        // ---- Horizontal bars ----
+        function horizontalBars(byField, total, emptyMsg) {
+            const entries = Object.entries(byField).sort((a, b) => b[1] - a[1]);
+            if (!entries.length) return emptyChart(emptyMsg);
+            return entries.map(([label, count]) => {
+                const pct = total ? (count / total) * 100 : 0;
+                return `
+                    <div class="mb-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm text-main">${escapeHtml(label)}</span>
+                            <span class="text-sm font-semibold text-secondary">${count} <span class="text-xs text-muted">(${pct}%)</span></span>
+                        </div>
+                        <div class="progress-bar" style="height:8px;">
+                            <div class="progress-bar-fill" style="width:${pct}%;"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ---- Top companies table ----
+        function topCompanies() {
+            const byCompany = {};
+            apps.forEach(a => {
+                if (!byCompany[a.companyName]) byCompany[a.companyName] = { count: 0, latest: null, statuses: {} };
+                const c = byCompany[a.companyName];
+                c.count++;
+                c.statuses[a.status] = (c.statuses[a.status] || 0) + 1;
+                const d = parseDate(a.applicationDate || a.createdAt);
+                if (!c.latest || d > c.latest) c.latest = d;
+            });
+
+            const sorted = Object.entries(byCompany).sort((a, b) => b[1].count - a[1].count).slice(0, 10);
+            if (!sorted.length) return emptyChart('No company data available.');
+
+            return `
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th class="col-hide-md">Applications</th>
+                                <th class="col-hide-sm">Latest Activity</th>
+                                <th>Status Breakdown</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${sorted.map(([name, c]) => `
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center text-primary font-semibold text-xs">${initials(name)}</div>
+                                            <span class="font-medium text-main">${escapeHtml(name)}</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold col-hide-md">${c.count}</td>
+                                    <td class="text-sm text-secondary col-hide-sm">${formatDate(c.latest)}</td>
+                                    <td>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${Object.entries(c.statuses).map(([s, n]) => `<span class="badge ${statusBadgeClass(s)} text-xs">${escapeHtml(s)}: ${n}</span>`).join('')}
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function emptyChart(msg) {
+            return `
+                <div class="empty-state" style="padding: var(--space-8);">
+                    <div class="empty-state-icon" style="width:40px;height:40px;">${icon('analytics')}</div>
+                    <div class="empty-state-title" style="font-size: var(--font-size-sm);">${escapeHtml(msg)}</div>
+                </div>
+            `;
+        }
+
+        function emptyState(msg, type = 'empty') {
+            const glyph = type === 'error' ? icon('alert') : icon('analytics');
+            return `
+                <div class="empty-state" style="padding: var(--space-16) var(--space-8);">
+                    <div class="empty-state-icon" style="width:48px;height:48px;">${glyph}</div>
+                    <div class="empty-state-title">${escapeHtml(msg)}</div>
+                    ${type === 'empty' ? `<p class="empty-state-desc">Add applications with dates, statuses, and sources to unlock meaningful insights.</p>` : ''}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

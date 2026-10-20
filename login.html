@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in — CareerFlow</title>
+    <meta name="description" content="Sign in to your CareerFlow workspace to manage your applications, interviews and follow-ups.">
+    <meta name="theme-color" content="#0b1220">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%234f46e5'/%3E%3Cpath d='M6 17h5v-6H6zm7 0h5V7h-5z' fill='white'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/design-system.css" rel="stylesheet">
+    <link href="css/landing.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="auth">
+    <!-- ===================== FORM SIDE ===================== -->
+    <main class="auth-form-side">
+        <div class="auth-top">
+            <a href="/" class="brand" style="color:var(--text-main);" aria-label="CareerFlow home">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h6V9H4zM14 18h6V4h-6z"/><path d="M10 13h4"/></svg>
+                </span>
+                <span>CareerFlow</span>
+            </a>
+            <a href="/" class="btn btn-ghost btn-sm">Back to site</a>
+        </div>
+
+        <div class="auth-body">
+            <h1 class="auth-title">Welcome back</h1>
+            <p class="auth-lede">Sign in to pick up where your job search left off.</p>
+
+            <div id="auth-alert" class="alert alert-error hidden" role="alert"></div>
+
+            <form id="login-form" novalidate onsubmit="return false;">
+                <div class="form-field">
+                    <label class="form-label" for="email">Email address</label>
+                    <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+                    <div class="form-error" id="email-error"></div>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="pw-field">
+                        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Your password" required>
+                        <button type="button" class="pw-toggle" id="pw-toggle" aria-label="Show password">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" id="pw-icon"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                    <div class="form-error" id="password-error"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="login-submit">Sign in</button>
+            </form>
+
+            <p class="auth-switch">
+                New to CareerFlow?
+                <a href="/register" class="font-medium">Create a free account</a>
+            </p>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- ===================== BRAND SIDE ===================== -->
+    <aside class="auth-side">
+        <h2>Everything you're chasing, in one calm place.</h2>
+        <p>Applications, interviews, and follow-ups — organised so you always know what needs you next.</p>
+
+        <div class="auth-points">
+            <div class="auth-point">
+                <i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>
+                <span>Track every application with full detail</span>
+            </div>
+            <div class="auth-point">
+                <i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>
+                <span>Prepare for every interview round with checklists</span>
+            </div>
+            <div class="auth-point">
+                <i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>
+                <span>See real analytics from your own data</span>
+            </div>
+        </div>
+
+        <div class="auth-preview" aria-hidden="true">
+            <div class="preview-chrome">
+                <span class="preview-dots"><i></i><i></i><i></i></span>
+                <span class="preview-url">careerflow.app/dashboard</span>
+            </div>
+            <div class="preview-main" style="padding: var(--space-4);">
+                <p class="preview-hello">Welcome back, Alex</p>
+                <p class="preview-sub">Here's how your job search is progressing.</p>
+                <div class="preview-stats">
+                    <div class="preview-stat"><span>Total</span><b>24</b></div>
+                    <div class="preview-stat"><span>In progress</span><b>11</b></div>
+                    <div class="preview-stat"><span>Interviews</span><b>4</b></div>
+                    <div class="preview-stat"><span>Offers</span><b>2</b></div>
+                </div>
+                <div class="preview-cols">
+                    <div class="preview-card">
+                        <h5>Application Activity <em>Last 8 weeks</em></h5>
+                        <div class="preview-bars">
+                            <i style="height:32%"></i><i style="height:52%"></i><i style="height:44%"></i>
+                            <i style="height:78%"></i><i style="height:61%"></i><i style="height:92%"></i>
+                            <i style="height:70%"></i><i style="height:48%"></i>
+                        </div>
+                    </div>
+                    <div class="preview-card">
+                        <h5>Upcoming</h5>
+                        <div class="preview-row">
+                            <span class="preview-avatar">NA</span>
+                            <span class="preview-row-text"><b>Interview</b><span>Nova Analytics</span></span>
+                            <span class="preview-chip" style="background:#cffafe;color:#0369a1;">Oct 22</span>
+                        </div>
+                        <div class="preview-row">
+                            <span class="preview-avatar">ZD</span>
+                            <span class="preview-row-text"><b>Follow-up</b><span>Zenith Digital</span></span>
+                            <span class="preview-chip" style="background:#fef3c7;color:#b45309;">Oct 23</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<script type="module">
+    import { api } from './js/api.js';
+    import { showToast } from './js/utils.js';
+
+    const form = document.getElementById('login-form');
+    const emailEl = document.getElementById('email');
+    const passwordEl = document.getElementById('password');
+    const submitBtn = document.getElementById('login-submit');
+    const alertEl = document.getElementById('auth-alert');
+
+    // Where to go after signing in
+    const params = new URLSearchParams(window.location.search);
+    const next = params.get('next') || '/dashboard';
+    const safeNext = next.startsWith('/') && !next.startsWith('//') ? next : '/dashboard';
+
+    // Show the error returned by the server (e.g. session expired)
+    if (params.get('reason') === 'auth') {
+        alertEl.textContent = 'Please sign in to continue.';
+        alertEl.classList.remove('hidden');
+    }
+
+    // ---------- Password visibility ----------
+    const pwToggle = document.getElementById('pw-toggle');
+    const pwIcon = document.getElementById('pw-icon');
+    pwToggle.addEventListener('click', () => {
+        const show = passwordEl.type === 'password';
+        passwordEl.type = show ? 'text' : 'password';
+        pwToggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        pwIcon.innerHTML = show
+            ? '<path d="M10.6 6.2A9.9 9.9 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3 3.6M6.6 6.6A17 17 0 0 0 2 12s3.6 6 10 6a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M2 2l20 20"/>'
+            : '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>';
+        passwordEl.focus();
+    });
+
+    function setFieldError(input, id, message) {
+        const el = document.getElementById(id);
+        if (message) {
+            input.classList.add('error');
+            el.textContent = message;
+        } else {
+            input.classList.remove('error');
+            el.textContent = '';
+        }
+    }
+
+    // ---------- Submit ----------
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        alertEl.classList.add('hidden');
+
+        const email = emailEl.value.trim();
+        const password = passwordEl.value;
+
+        let valid = true;
+        if (!email) { setFieldError(emailEl, 'email-error', 'Email is required.'); valid = false; }
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { setFieldError(emailEl, 'email-error', 'Enter a valid email address.'); valid = false; }
+        else setFieldError(emailEl, 'email-error', '');
+
+        if (!password) { setFieldError(passwordEl, 'password-error', 'Password is required.'); valid = false; }
+        else setFieldError(passwordEl, 'password-error', '');
+
+        if (!valid) return;
+
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-loading');
+        submitBtn.textContent = 'Signing in';
+
+        try {
+            await api.login({ email, password });
+            showToast('Welcome back.');
+            window.location.href = safeNext;
+        } catch (err) {
+            const message = err.message || 'Could not sign in. Please try again.';
+            alertEl.textContent = message;
+            alertEl.classList.remove('hidden');
+            if (err.errors?.password) setFieldError(passwordEl, 'password-error', err.errors.password);
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('is-loading');
+            submitBtn.textContent = 'Sign in';
+        }
+    });
+</script>
+</body>
+</html>

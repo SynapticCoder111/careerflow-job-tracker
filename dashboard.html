@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerFlow Overview — see your job search progress, upcoming interviews, pipeline summary, and applications that need attention.">
+    <title>Overview — CareerFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/design-system.css" rel="stylesheet">
+    <link href="css/pipeline.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== Sidebar ========== -->
+    <!-- ========== Sidebar ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+        <button type="button" class="sidebar-brand" id="sidebar-toggle" aria-label="CareerFlow, collapse sidebar" aria-expanded="true" title="CareerFlow — collapse sidebar">
+            <span class="sidebar-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h6V9H4zM14 18h6V4h-6z"/><path d="M10 13h4"/></svg></span>
+            <span class="sidebar-brand-name">CareerFlow</span><span class="sidebar-brand-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </span></button>
+        <nav class="sidebar-nav" aria-label="Main">
+
+            <div class="nav-group">
+              <div class="nav-group-title">Workspace</div>
+              
+                <a href="/dashboard" class="nav-item active" aria-current="page">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg>
+                  <span>Overview</span>
+                </a>
+                <a href="/applications" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                  <span>Applications</span>
+                </a>
+                <a href="/pipeline" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg>
+                  <span>Pipeline</span>
+                </a>
+                <a href="/calendar" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  <span>Calendar</span>
+                </a>
+                <a href="/companies" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>
+                  <span>Companies</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Career</div>
+              
+                <a href="/interview-prep" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-3.5 7-9V5l-7-3-7 3v7c0 5.5 7 9 7 9z"/><path d="M9 11l2 2 4-4"/></svg>
+                  <span>Interview Prep</span>
+                </a>
+                <a href="/analytics" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+                  <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Account</div>
+              
+                <a href="/settings" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 3 7.6V7a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-chip" id="user-chip" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false" style="width:100%;">
+                <span class="avatar" id="user-avatar">?</span>
+                <span class="sidebar-user-info flex-1 min-w-0 text-left">
+                    <span class="block text-sm font-medium truncate" id="user-name" style="color:#fff;">Loading…</span>
+                    <span class="block text-xs truncate" id="user-email" style="color:rgba(255,255,255,.66);"></span>
+                </span>
+                <span class="sidebar-user-info sidebar-caret" style="color:rgba(255,255,255,.4);flex:none;">
+                    <svg class="dropdown-caret" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </span>
+            </div>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ========== Header ========== -->
+    <!-- ========== Header ========== -->
+    <header class="header" id="app-header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <h1 class="header-title" id="page-title">Overview</h1>
+        </div>
+        <div class="header-right" id="header-actions">
+            <span class="text-xs text-muted" id="header-date"></span>
+            <button class="btn btn-primary btn-sm" id="open-add-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add Application</button>
+        </div>
+    </header>
+
+    <!-- ========== Main Content ========== -->
+    <main id="main" class="app-main">
+        <section class="page-header">
+            <h2 class="page-title" id="welcome-title">Welcome back</h2>
+            <p class="page-subtitle">Here's how your job search is progressing.</p>
+        </section>
+
+        <!-- Summary cards -->
+        <div class="grid grid-5 mb-6" id="summary-cards">
+            <!-- Cards injected by JS -->
+        </div>
+
+        <div class="split mb-6">
+            <!-- Application activity chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="font-semibold text-base">Application Activity</h3>
+                    <a href="/applications" class="text-link">View all &rarr;</a>
+                </div>
+                <div class="card-body p-5">
+                    <div id="activity-chart">
+                        <!-- Chart injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pipeline summary -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="font-semibold text-base">Pipeline Summary</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div id="pipeline-summary">
+                        <!-- Pipeline rows injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="split">
+            <!-- Upcoming activity -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="font-semibold text-base">Upcoming Activity</h3>
+                    <a href="/applications" class="text-link">View all &rarr;</a>
+                </div>
+                <div class="card-body p-4">
+                    <div id="upcoming-activity">
+                        <!-- Upcoming items injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent applications -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="font-semibold text-base">Recent Applications</h3>
+                    <a href="/applications" class="text-link">View all &rarr;</a>
+                </div>
+                <div class="card-body p-4">
+                    <div id="recent-applications">
+                        <!-- Recent apps injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attention required -->
+        <section class="card mt-6">
+            <div class="card-header">
+                <h3 class="font-semibold text-base">Attention Required</h3>
+            </div>
+            <div class="card-body p-4">
+                <div id="attention-required">
+                    <!-- Attention items injected by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== Add Application Dialog ========== -->
+    <div class="modal-overlay" id="add-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Application</h3>
+                <button class="close-modal" id="close-add-modal" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form" onsubmit="return false;">
+                    <div class="form-field">
+                        <label for="add-company">Company Name <span style="color: var(--color-error-text);">*</span></label>
+                        <input type="text" id="add-company" name="companyName" required maxlength="200" placeholder="e.g. Acme Corp">
+                        <div class="form-error" id="add-company-error"></div>
+                    </div>
+                    <div class="form-field">
+                        <label for="add-role">Job Role <span style="color: var(--color-error-text);">*</span></label>
+                        <input type="text" id="add-role" name="jobRole" required maxlength="200" placeholder="e.g. Software Engineer">
+                        <div class="form-error" id="add-role-error"></div>
+                    </div>
+                    <div class="form-field">
+                        <label for="add-status">Application Status <span style="color: var(--color-error-text);">*</span></label>
+                        <select id="add-status" name="status" required>
+                            <option value="Applied">Applied</option>
+                            <option value="Bookmarked">Bookmarked</option>
+                            <option value="Assessment">Assessment</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Offer">Offer</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Withdrawn">Withdrawn</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="add-date">Application Date</label>
+                        <input type="date" id="add-date" name="applicationDate">
+                    </div>
+                    <div class="form-field">
+                        <label for="add-link">Job Posting URL</label>
+                        <input type="url" id="add-link" name="jobLink" maxlength="500" placeholder="https://example.com/job">
+                        <div class="form-error" id="add-link-error"></div>
+                    </div>
+                    <div class="form-field">
+                        <label for="add-notes">Notes</label>
+                        <textarea id="add-notes" name="notes" rows="3" maxlength="10000" placeholder="Why this role interests you&hellip;"></textarea>
+                    </div>
+                    <p class="text-xs text-muted">Fields marked with <span style="color: var(--color-error-text);">*</span> are required.</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ghost" id="cancel-add">Cancel</button>
+                <button type="submit" form="add-form" class="btn btn-primary" id="submit-add">Save Application</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/dropdown.js"></script>
+    <script type="module" src="js/app-shell.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

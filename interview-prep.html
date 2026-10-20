@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerFlow Interview Prep — prepare for each interview round with topics, questions, checklists, and outcomes.">
+    <title>Interview Preparation — CareerFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/design-system.css" rel="stylesheet">
+    <link href="css/pipeline.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== Sidebar ========== -->
+    <!-- ========== Sidebar ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+        <button type="button" class="sidebar-brand" id="sidebar-toggle" aria-label="CareerFlow, collapse sidebar" aria-expanded="true" title="CareerFlow — collapse sidebar">
+            <span class="sidebar-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h6V9H4zM14 18h6V4h-6z"/><path d="M10 13h4"/></svg></span>
+            <span class="sidebar-brand-name">CareerFlow</span><span class="sidebar-brand-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </span></button>
+        <nav class="sidebar-nav" aria-label="Main">
+
+            <div class="nav-group">
+              <div class="nav-group-title">Workspace</div>
+              
+                <a href="/dashboard" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg>
+                  <span>Overview</span>
+                </a>
+                <a href="/applications" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                  <span>Applications</span>
+                </a>
+                <a href="/pipeline" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg>
+                  <span>Pipeline</span>
+                </a>
+                <a href="/calendar" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  <span>Calendar</span>
+                </a>
+                <a href="/companies" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>
+                  <span>Companies</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Career</div>
+              
+                <a href="/interview-prep" class="nav-item active" aria-current="page">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-3.5 7-9V5l-7-3-7 3v7c0 5.5 7 9 7 9z"/><path d="M9 11l2 2 4-4"/></svg>
+                  <span>Interview Prep</span>
+                </a>
+                <a href="/analytics" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+                  <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Account</div>
+              
+                <a href="/settings" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 3 7.6V7a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-chip" id="user-chip" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false" style="width:100%;">
+                <span class="avatar" id="user-avatar">?</span>
+                <span class="sidebar-user-info flex-1 min-w-0 text-left">
+                    <span class="block text-sm font-medium truncate" id="user-name" style="color:#fff;">Loading…</span>
+                    <span class="block text-xs truncate" id="user-email" style="color:rgba(255,255,255,.66);"></span>
+                </span>
+                <span class="sidebar-user-info sidebar-caret" style="color:rgba(255,255,255,.4);flex:none;">
+                    <svg class="dropdown-caret" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </span>
+            </div>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ========== Header ========== -->
+    <!-- ========== Header ========== -->
+    <header class="header" id="app-header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <h1 class="header-title" id="page-title">Interview Preparation</h1>
+        </div>
+        <div class="header-right" id="header-actions">
+            <span class="text-xs text-muted" id="header-date"></span>
+            <button class="btn btn-primary btn-sm" id="add-interview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Schedule Interview</button>
+        </div>
+    </header>
+
+    <main id="main" class="app-main">
+        <h2 class="visually-hidden">Interview rounds</h2>
+        <section class="page-header mb-6">
+            <p class="page-subtitle">Prepare for each interview round with topics, questions, checklists, and outcomes.</p>
+        </section>
+
+        <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));" id="prep-stats">
+            <!-- Stats injected by JS -->
+        </div>
+
+        <div id="prep-container">
+            <!-- Interviews injected by JS -->
+        </div>
+    </main>
+
+    <!-- ========== Interview Form Modal ========== -->
+    <div class="modal-overlay" id="interview-modal">
+        <div class="modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="interview-modal-title">Schedule Interview</h3>
+                <button class="close-modal" id="close-interview-modal" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="interview-form" onsubmit="return false;">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="iv-application">Application <span style="color: var(--color-error-text);">*</span></label>
+                            <select id="iv-application" name="applicationId" required></select>
+                            <div class="form-error" id="iv-application-error"></div>
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-type">Interview Type <span style="color: var(--color-error-text);">*</span></label>
+                            <select id="iv-type" name="interviewType" required>
+                                <option value="Recruiter Screen">Recruiter Screen</option>
+                                <option value="Technical Interview">Technical Interview</option>
+                                <option value="Coding Round">Coding Round</option>
+                                <option value="System Design">System Design</option>
+                                <option value="Behavioral Interview">Behavioral Interview</option>
+                                <option value="HR Round">HR Round</option>
+                                <option value="Final Interview">Final Interview</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-round">Round</label>
+                            <input type="text" id="iv-round" name="round" maxlength="100" placeholder="e.g. Round 1">
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-date">Interview Date <span style="color: var(--color-error-text);">*</span></label>
+                            <input type="date" id="iv-date" name="interviewDate" required>
+                            <div class="form-error" id="iv-date-error"></div>
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-interviewer">Interviewer Name</label>
+                            <input type="text" id="iv-interviewer" name="interviewerName" maxlength="200" placeholder="e.g. Jane Smith">
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-location">Location / Link</label>
+                            <input type="text" id="iv-location" name="location" maxlength="200" placeholder="e.g. Zoom / Office B">
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-topics">Topics to Prepare <span class="text-muted">(comma-separated)</span></label>
+                            <input type="text" id="iv-topics" name="topicsToPrepare" placeholder="e.g. System design, REST APIs">
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-questions">Questions to Ask <span class="text-muted">(comma-separated)</span></label>
+                            <input type="text" id="iv-questions" name="questionsToAsk" placeholder="e.g. Team structure, Growth path">
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-checklist">Prep Checklist <span class="text-muted">(comma-separated)</span></label>
+                            <input type="text" id="iv-checklist" name="checklist" placeholder="e.g. Review JD, Prepare intro, Test setup">
+                        </div>
+                        <div class="form-field">
+                            <label for="iv-outcome">Outcome</label>
+                            <select id="iv-outcome" name="outcome">
+                                <option value="Pending">Pending</option>
+                                <option value="Passed">Passed</option>
+                                <option value="Failed">Failed</option>
+                                <option value="Rescheduled">Rescheduled</option>
+                                <option value="Withdrawn">Withdrawn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="iv-notes">Personal Notes</label>
+                        <textarea id="iv-notes" name="personalNotes" rows="3" maxlength="10000" placeholder="Key points to remember…"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="iv-next">Next Steps</label>
+                        <textarea id="iv-next" name="nextSteps" rows="2" maxlength="5000" placeholder="What to do after this round…"></textarea>
+                    </div>
+                    <p class="text-xs text-muted">Fields marked with <span style="color: var(--color-error-text);">*</span> are required.</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-ghost" id="cancel-interview">Cancel</button>
+                <button type="submit" form="interview-form" class="btn btn-primary" id="submit-interview">Save Interview</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== Interview Detail Modal ========== -->
+    <div class="modal-overlay" id="prep-detail-modal">
+        <div class="modal" style="max-width: 640px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="prep-detail-title">Interview Details</h3>
+                <button class="close-modal" id="close-prep-detail" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body" id="prep-detail-content"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="prep-detail-edit">Edit</button>
+                <button class="btn btn-danger" id="prep-detail-delete">Delete</button>
+                <button class="btn btn-outline" id="prep-detail-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="js/dropdown.js"></script>
+    <script type="module" src="js/app-shell.js"></script>
+    <script type="module">
+        import { api } from './js/api.js';
+        import { formatDate, formatDateInput, escapeHtml, initials, isOverdue, parseDate, showToast, icon } from './js/utils.js';
+        import { mountShell } from './js/app-shell.js';
+        import { confirmDialog } from './js/dialog.js';
+
+        const INTERVIEW_TYPES = ['Recruiter Screen','Technical Interview','Coding Round','System Design','Behavioral Interview','HR Round','Final Interview'];
+        const OUTCOMES = ['Pending','Passed','Failed','Rescheduled','Withdrawn'];
+
+        // ---- State ----
+        let interviews = [];
+        let applications = [];
+        let editingId = null;
+
+        // ---- DOM refs ----
+        const container = document.getElementById('prep-container');
+        const statsEl = document.getElementById('prep-stats');
+        const interviewModal = document.getElementById('interview-modal');
+        const interviewForm = document.getElementById('interview-form');
+        const detailModal = document.getElementById('prep-detail-modal');
+        const detailContent = document.getElementById('prep-detail-content');
+        const appSelect = document.getElementById('iv-application');
+
+        // ---- Init ----
+        document.addEventListener('DOMContentLoaded', () => {
+            mountShell({ active: 'interview-prep', title: 'Interview Preparation' });
+            loadData();
+            setupForm();
+            setupDetailModal();
+        });
+
+        async function loadData() {
+            container.innerHTML = `<div class="loading"><div class="spinner"></div><div class="loading-text">Loading interviews&hellip;</div></div>`;
+            try {
+                const [appsRes, ivRes] = await Promise.all([
+                    api.getAllApplications(),
+                    api.getInterviews()
+                ]);
+                applications = appsRes.data || [];
+                interviews = ivRes.data || [];
+                populateAppSelect();
+                render();
+            } catch (err) {
+                console.error('Failed to load interviews:', err);
+                container.innerHTML = emptyState('Unable to load interview data. Please check your connection.', 'error');
+                showToast('Failed to load interview data.', 'error');
+            }
+        }
+
+        function populateAppSelect() {
+            const current = appSelect.value;
+            appSelect.innerHTML = '<option value="">Select application…</option>' + applications.map(a =>
+                `<option value="${escapeHtml(a.id)}">${escapeHtml(a.companyName)} — ${escapeHtml(a.jobRole)}</option>`
+            ).join('');
+            if (current) appSelect.value = current;
+        }
+
+        function appFor(id) {
+            return applications.find(a => a.id === id);
+        }
+
+        function render() {
+            renderStats();
+            if (!interviews.length) {
+                container.innerHTML = emptyState(
+                    applications.length
+                        ? 'No interviews scheduled yet. Add your first interview round to start preparing.'
+                        : 'No applications yet. Add an application first, then schedule its interview rounds.',
+                    'empty'
+                );
+                return;
+            }
+
+            // Group by application
+            const groups = new Map();
+            interviews.forEach(iv => {
+                const key = iv.applicationId;
+                if (!groups.has(key)) groups.set(key, []);
+                groups.get(key).push(iv);
+            });
+
+            container.innerHTML = Array.from(groups.entries()).map(([appId, list]) => {
+                const app = appFor(appId);
+                const company = app ? app.companyName : 'Unknown application';
+                const role = app ? app.jobRole : '';
+                list.sort((a, b) => parseDate(a.interviewDate) - parseDate(b.interviewDate));
+
+                return `
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-primary-light flex items-center justify-center text-primary font-semibold text-xs">${initials(company)}</div>
+                                <div>
+                                    <h3 class="font-semibold text-base text-main">${escapeHtml(company)}</h3>
+                                    <p class="text-xs text-muted">${escapeHtml(role)} &bull; ${list.length} round${list.length === 1 ? '' : 's'}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            ${list.map(iv => interviewRow(iv)).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            attachListeners();
+        }
+
+        function interviewRow(iv) {
+            const checklist = iv.preparationChecklist || [];
+            const done = checklist.filter(c => c.done).length;
+            const pct = checklist.length ? Math.round((done / checklist.length) * 100) : 0;
+            const isPast = isOverdue(iv.interviewDate);
+
+            return `
+                <div class="mb-3 p-3 rounded-lg border border-border" data-interview-id="${escapeHtml(iv.id)}">
+                    <div class="flex justify-between items-start gap-3 mb-2">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-semibold text-main">${escapeHtml(iv.round || 'Interview')}</span>
+                                <span class="badge badge-info text-xs">${escapeHtml(iv.interviewType)}</span>
+                                <span class="badge ${outcomeBadgeClass(iv.outcome)} text-xs">${escapeHtml(iv.outcome || 'Pending')}</span>
+                            </div>
+                            <div class="text-xs text-muted mt-1 flex items-center gap-3 flex-wrap">
+                                <span class="icon-inline">${icon('calendar')} ${formatDate(iv.interviewDate)}${isPast ? ' · Past' : ''}</span>
+                                ${iv.interviewerName ? `<span class="icon-inline">${icon('user')} ${escapeHtml(iv.interviewerName)}</span>` : ''}
+                                ${iv.location ? `<span class="icon-inline">${icon('mapPin')} ${escapeHtml(iv.location)}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="flex gap-1">
+                            <button class="btn-icon btn-sm" data-action="view-interview" data-id="${escapeHtml(iv.id)}" aria-label="View interview details">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2l6 6"></path><path d="M9 21v-6a4 4 0 0 1 4-4h5"></path></svg>
+                            </button>
+                            <button class="btn-icon btn-sm" data-action="edit-interview" data-id="${escapeHtml(iv.id)}" aria-label="Edit interview">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button class="btn-icon btn-sm" data-action="delete-interview" data-id="${escapeHtml(iv.id)}" aria-label="Delete interview" style="color: var(--color-error-text);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    ${checklist.length ? `
+                        <div class="mb-2">
+                            <div class="flex justify-between text-xs text-muted mb-1">
+                                <span>Prep checklist</span>
+                                <span>${done}/${checklist.length} (${pct}%)</span>
+                            </div>
+                            <div class="progress-bar" style="height:6px;">
+                                <div class="progress-bar-fill" style="width:${pct}%;"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            ${checklist.map((c, i) => `
+                                <label class="flex items-center gap-2 text-xs cursor-pointer" style="cursor:pointer;">
+                                    <input type="checkbox" data-action="toggle-check" data-id="${escapeHtml(iv.id)}" data-index="${i}" ${c.done ? 'checked' : ''}
+                                           class="check-control">
+                                    <span style="${c.done ? 'text-muted; text-decoration: line-through;' : 'text-secondary;'}">${escapeHtml(c.text)}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function outcomeBadgeClass(outcome) {
+            switch (outcome) {
+                case 'Passed': return 'badge-success';
+                case 'Failed': return 'badge-error';
+                case 'Rescheduled': return 'badge-warning';
+                case 'Withdrawn': return 'badge-secondary';
+                default: return 'badge-info';
+            }
+        }
+
+        function renderStats() {
+            const total = interviews.length;
+            const upcoming = interviews.filter(iv => !isOverdue(iv.interviewDate)).length;
+            const completed = total - upcoming;
+            const withChecklist = interviews.filter(iv => (iv.preparationChecklist || []).length > 0).length;
+            const avgPrep = withChecklist
+                ? Math.round(interviews.filter(iv => (iv.preparationChecklist || []).length)
+                    .reduce((sum, iv) => {
+                        const c = iv.preparationChecklist || [];
+                        return sum + (c.filter(x => x.done).length / c.length) * 100;
+                    }, 0) / withChecklist)
+                : 0;
+
+            statsEl.innerHTML = `
+                ${stat('Total Interviews', total, 'Across all applications', icon('target'), 'text-primary', 'bg-primary-light')}
+                ${stat('Upcoming', upcoming, 'Scheduled for the future', icon('calendar'), 'text-info', 'bg-info-light')}
+                ${stat('Completed', completed, 'Already happened', icon('checkCircle'), 'text-success', 'bg-success-light')}
+                ${stat('Avg Prep Progress', avgPrep + '%', `Across ${withChecklist} with a checklist`, icon('trendingUp'), 'text-warning', 'bg-warning-light')}
+            `;
+        }
+
+        function stat(label, value, sub, icon, colorClass, bgClass) {
+            return `
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-content">
+                            <p class="stat-card-label">${escapeHtml(label)}</p>
+                            <p class="stat-card-value ${colorClass}">${escapeHtml(String(value))}</p>
+                            <p class="stat-card-sub">${escapeHtml(sub)}</p>
+                        </div>
+                        <div class="stat-card-icon ${bgClass}">${icon}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function attachListeners() {
+            container.querySelectorAll('button[data-action]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const action = btn.dataset.action;
+                    const id = btn.dataset.id;
+                    if (action === 'view-interview') viewInterview(id);
+                    else if (action === 'edit-interview') editInterview(id);
+                    else if (action === 'delete-interview') confirmDelete(id);
+                });
+            });
+
+            container.querySelectorAll('input[data-action="toggle-check"]').forEach(cb => {
+                cb.addEventListener('change', async () => {
+                    const id = cb.dataset.id;
+                    const index = parseInt(cb.dataset.index, 10);
+                    try {
+                        await api.toggleChecklistItem(id, index, cb.checked);
+                        const iv = interviews.find(x => x.id === id);
+                        if (iv && iv.preparationChecklist && iv.preparationChecklist[index]) {
+                            iv.preparationChecklist[index].done = cb.checked;
+                        }
+                        renderStats();
+                        // Update progress bar in place
+                        const card = cb.closest('[data-interview-id]');
+                        if (card) {
+                            const list = card.querySelectorAll('input[data-action="toggle-check"]');
+                            const doneCount = Array.from(list).filter(x => x.checked).length;
+                            const pct = list.length ? Math.round((doneCount / list.length) * 100) : 0;
+                            const bar = card.querySelector('.progress-bar-fill');
+                            const label = card.querySelector('.progress-bar').previousElementSibling.querySelector('span:last-child');
+                            if (bar) bar.style.width = pct + '%';
+                            if (label) label.textContent = `${doneCount}/${list.length} (${pct}%)`;
+                        }
+                    } catch (err) {
+                        console.error('Checklist toggle failed:', err);
+                        showToast(err.message || 'Failed to update checklist.', 'error');
+                        cb.checked = !cb.checked;
+                    }
+                });
+            });
+        }
+
+        // ---- Form ----
+        function setupForm() {
+            const openBtn = document.getElementById('add-interview-btn');
+            const closeBtn = document.getElementById('close-interview-modal');
+            const cancelBtn = document.getElementById('cancel-interview');
+            const submitBtn = document.getElementById('submit-interview');
+            const modalTitle = document.getElementById('interview-modal-title');
+
+            openBtn.addEventListener('click', () => {
+                if (!applications.length) {
+                    showToast('Add an application before scheduling an interview.', 'info');
+                    return;
+                }
+                editingId = null;
+                interviewForm.reset();
+                populateAppSelect();
+                modalTitle.textContent = 'Schedule Interview';
+                submitBtn.textContent = 'Save Interview';
+                clearErrors();
+                interviewModal.classList.add('open');
+            });
+
+            const closeModal = () => interviewModal.classList.remove('open');
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            interviewModal.addEventListener('click', (e) => { if (e.target === interviewModal) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+            interviewForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const applicationId = document.getElementById('iv-application').value;
+                const interviewDate = document.getElementById('iv-date').value;
+
+                let valid = true;
+                if (!applicationId) {
+                    const err = document.getElementById('iv-application-error');
+                    err.textContent = 'Please select an application';
+                    valid = false;
+                }
+                if (!interviewDate) {
+                    const err = document.getElementById('iv-date-error');
+                    err.textContent = 'Interview date is required';
+                    valid = false;
+                }
+                if (!valid) return;
+
+                const checklistText = document.getElementById('iv-checklist').value;
+                const topics = document.getElementById('iv-topics').value.split(',').map(t => t.trim()).filter(Boolean);
+                const questions = document.getElementById('iv-questions').value.split(',').map(q => q.trim()).filter(Boolean);
+                const checklist = checklistText.split(',').map(t => t.trim()).filter(Boolean).map(text => ({ text, done: false }));
+
+                const payload = {
+                    applicationId,
+                    interviewType: document.getElementById('iv-type').value,
+                    round: document.getElementById('iv-round').value.trim() || 'Round 1',
+                    interviewDate,
+                    interviewerName: document.getElementById('iv-interviewer').value.trim() || null,
+                    location: document.getElementById('iv-location').value.trim() || null,
+                    topicsToPrepare: topics,
+                    questionsToAsk: questions,
+                    personalNotes: document.getElementById('iv-notes').value.trim() || null,
+                    outcome: document.getElementById('iv-outcome').value,
+                    nextSteps: document.getElementById('iv-next').value.trim() || null,
+                };
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Saving…';
+
+                try {
+                    if (editingId) {
+                        // Preserve existing checklist state on update
+                        const existing = interviews.find(x => x.id === editingId);
+                        if (existing && existing.preparationChecklist) {
+                            payload.preparationChecklist = existing.preparationChecklist;
+                        } else {
+                            payload.preparationChecklist = checklist;
+                        }
+                        await api.updateInterview(editingId, payload);
+                        showToast('Interview updated successfully.');
+                    } else {
+                        payload.preparationChecklist = checklist;
+                        await api.createInterview(payload);
+                        showToast('Interview scheduled successfully.');
+                    }
+                    closeModal();
+                    loadData();
+                } catch (err) {
+                    console.error('Interview save failed:', err);
+                    if (err.errors) {
+                        for (const [field, msg] of Object.entries(err.errors)) {
+                            const errEl = document.getElementById(`iv-${field}-error`);
+                            if (errEl) errEl.textContent = msg;
+                        }
+                    } else {
+                        showToast(err.message || 'Failed to save interview.', 'error');
+                    }
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = editingId ? 'Update Interview' : 'Save Interview';
+                }
+            });
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('#interview-form .form-error').forEach(el => el.textContent = '');
+        }
+
+        function editInterview(id) {
+            const iv = interviews.find(x => x.id === id);
+            if (!iv) return;
+
+            editingId = id;
+            document.getElementById('iv-application').value = iv.applicationId;
+            document.getElementById('iv-type').value = iv.interviewType;
+            document.getElementById('iv-round').value = iv.round || '';
+            document.getElementById('iv-date').value = formatDateInput(iv.interviewDate);
+            document.getElementById('iv-interviewer').value = iv.interviewerName || '';
+            document.getElementById('iv-location').value = iv.location || '';
+            document.getElementById('iv-topics').value = (iv.topicsToPrepare || []).join(', ');
+            document.getElementById('iv-questions').value = (iv.questionsToAsk || []).join(', ');
+            document.getElementById('iv-checklist').value = (iv.preparationChecklist || []).map(c => c.text).join(', ');
+            document.getElementById('iv-notes').value = iv.personalNotes || '';
+            document.getElementById('iv-outcome').value = iv.outcome || 'Pending';
+            document.getElementById('iv-next').value = iv.nextSteps || '';
+
+            document.getElementById('interview-modal-title').textContent = 'Edit Interview';
+            document.getElementById('submit-interview').textContent = 'Update Interview';
+            clearErrors();
+            interviewModal.classList.add('open');
+        }
+
+        // ---- Detail modal ----
+        function viewInterview(id) {
+            const iv = interviews.find(x => x.id === id);
+            if (!iv) return;
+            const app = appFor(iv.applicationId);
+            const checklist = iv.preparationChecklist || [];
+
+            detailContent.innerHTML = `
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 flex-wrap mb-2">
+                        <span class="text-lg font-semibold text-main">${escapeHtml(iv.round || 'Interview')}</span>
+                        <span class="badge badge-info">${escapeHtml(iv.interviewType)}</span>
+                        <span class="badge ${outcomeBadgeClass(iv.outcome)}">${escapeHtml(iv.outcome || 'Pending')}</span>
+                    </div>
+                    <p class="text-sm text-secondary">${escapeHtml(app ? app.companyName + ' — ' + app.jobRole : 'Unknown application')}</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><span class="text-xs text-muted block">Date</span><span class="text-sm font-medium">${formatDate(iv.interviewDate)}</span></div>
+                    <div><span class="text-xs text-muted block">Interviewer</span><span class="text-sm font-medium">${escapeHtml(iv.interviewerName || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Location</span><span class="text-sm font-medium">${escapeHtml(iv.location || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Outcome</span><span class="text-sm font-medium">${escapeHtml(iv.outcome || 'Pending')}</span></div>
+                </div>
+
+                ${(iv.topicsToPrepare || []).length ? `
+                <div class="mb-4">
+                    <span class="text-xs font-semibold text-secondary block mb-2">Topics to Prepare</span>
+                    <div class="flex flex-wrap gap-1">${iv.topicsToPrepare.map(t => `<span class="badge badge-secondary text-xs">${escapeHtml(t)}</span>`).join('')}</div>
+                </div>` : ''}
+
+                ${(iv.questionsToAsk || []).length ? `
+                <div class="mb-4">
+                    <span class="text-xs font-semibold text-secondary block mb-2">Questions to Ask</span>
+                    <ul class="text-sm text-secondary space-y-1" style="padding-left:1.1rem;">
+                        ${iv.questionsToAsk.map(q => `<li>${escapeHtml(q)}</li>`).join('')}
+                    </ul>
+                </div>` : ''}
+
+                ${checklist.length ? `
+                <div class="mb-4">
+                    <span class="text-xs font-semibold text-secondary block mb-2">Preparation Checklist</span>
+                    <div class="space-y-1">
+                        ${checklist.map((c, i) => `
+                            <label class="flex items-center gap-2 text-sm cursor-pointer" style="cursor:pointer;">
+                                <input type="checkbox" data-action="toggle-check" data-id="${escapeHtml(iv.id)}" data-index="${i}" ${c.done ? 'checked' : ''} class="check-control">
+                                <span style="${c.done ? 'text-muted; text-decoration: line-through;' : 'text-secondary;'}">${escapeHtml(c.text)}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+
+                ${iv.personalNotes ? `
+                <div class="mb-4">
+                    <span class="text-xs font-semibold text-secondary block mb-1">Personal Notes</span>
+                    <p class="text-sm text-secondary whitespace-pre-wrap">${escapeHtml(iv.personalNotes)}</p>
+                </div>` : ''}
+
+                ${iv.nextSteps ? `
+                <div>
+                    <span class="text-xs font-semibold text-secondary block mb-1">Next Steps</span>
+                    <p class="text-sm text-secondary whitespace-pre-wrap">${escapeHtml(iv.nextSteps)}</p>
+                </div>` : ''}
+            `;
+
+            detailModal.dataset.interviewId = id;
+            detailModal.classList.add('open');
+
+            // Attach checkbox listeners inside the detail modal
+            detailContent.querySelectorAll('input[data-action="toggle-check"]').forEach(cb => {
+                cb.addEventListener('change', async () => {
+                    const iid = cb.dataset.id;
+                    const index = parseInt(cb.dataset.index, 10);
+                    try {
+                        await api.toggleChecklistItem(iid, index, cb.checked);
+                        const iv = interviews.find(x => x.id === iid);
+                        if (iv && iv.preparationChecklist && iv.preparationChecklist[index]) {
+                            iv.preparationChecklist[index].done = cb.checked;
+                        }
+                        renderStats();
+                    } catch (err) {
+                        console.error('Checklist toggle failed:', err);
+                        showToast(err.message || 'Failed to update checklist.', 'error');
+                        cb.checked = !cb.checked;
+                    }
+                });
+            });
+        }
+
+        function setupDetailModal() {
+            const closeBtn = document.getElementById('close-prep-detail');
+            const closeBtn2 = document.getElementById('prep-detail-close');
+            const editBtn = document.getElementById('prep-detail-edit');
+            const deleteBtn = document.getElementById('prep-detail-delete');
+
+            const close = () => detailModal.classList.remove('open');
+            closeBtn.addEventListener('click', close);
+            closeBtn2.addEventListener('click', close);
+            detailModal.addEventListener('click', (e) => { if (e.target === detailModal) close(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+            editBtn.addEventListener('click', () => {
+                const id = detailModal.dataset.interviewId;
+                if (id) { close(); editInterview(id); }
+            });
+            deleteBtn.addEventListener('click', () => {
+                const id = detailModal.dataset.interviewId;
+                if (id) { close(); confirmDelete(id); }
+            });
+        }
+
+        async function confirmDelete(id) {
+            const iv = interviews.find(x => x.id === id);
+            if (!iv) return;
+            const confirmed = await confirmDialog({
+                title: 'Delete interview round?',
+                message: `Delete the "${iv.round || iv.interviewType}" interview? This cannot be undone.`,
+                confirmLabel: 'Delete interview',
+                tone: 'danger'
+            });
+            if (confirmed) deleteInterview(id);
+        }
+
+        async function deleteInterview(id) {
+            try {
+                await api.deleteInterview(id);
+                showToast('Interview deleted successfully.');
+                loadData();
+            } catch (err) {
+                console.error('Interview delete failed:', err);
+                showToast(err.message || 'Failed to delete interview.', 'error');
+            }
+        }
+
+        function emptyState(msg, type = 'empty') {
+            const glyph = type === 'error' ? icon('alert') : icon('target');
+            return `
+                <div class="empty-state" style="padding: var(--space-16) var(--space-8);">
+                    <div class="empty-state-icon" style="width:48px;height:48px;">${glyph}</div>
+                    <div class="empty-state-title">${escapeHtml(msg)}</div>
+                    ${type === 'empty' ? `<p class="empty-state-desc">Each interview round can hold its own topics, questions, checklist, and outcome — supporting multiple rounds per application.</p>` : ''}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

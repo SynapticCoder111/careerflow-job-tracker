@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerFlow Calendar — track interviews, assessment deadlines, follow-up dates, and application deadlines in one agenda.">
+    <title>Calendar — CareerFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/design-system.css" rel="stylesheet">
+    <link href="css/pipeline.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== Sidebar ========== -->
+    <!-- ========== Sidebar ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+        <button type="button" class="sidebar-brand" id="sidebar-toggle" aria-label="CareerFlow, collapse sidebar" aria-expanded="true" title="CareerFlow — collapse sidebar">
+            <span class="sidebar-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h6V9H4zM14 18h6V4h-6z"/><path d="M10 13h4"/></svg></span>
+            <span class="sidebar-brand-name">CareerFlow</span><span class="sidebar-brand-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </span></button>
+        <nav class="sidebar-nav" aria-label="Main">
+
+            <div class="nav-group">
+              <div class="nav-group-title">Workspace</div>
+              
+                <a href="/dashboard" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg>
+                  <span>Overview</span>
+                </a>
+                <a href="/applications" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                  <span>Applications</span>
+                </a>
+                <a href="/pipeline" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg>
+                  <span>Pipeline</span>
+                </a>
+                <a href="/calendar" class="nav-item active" aria-current="page">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  <span>Calendar</span>
+                </a>
+                <a href="/companies" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>
+                  <span>Companies</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Career</div>
+              
+                <a href="/interview-prep" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-3.5 7-9V5l-7-3-7 3v7c0 5.5 7 9 7 9z"/><path d="M9 11l2 2 4-4"/></svg>
+                  <span>Interview Prep</span>
+                </a>
+                <a href="/analytics" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+                  <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-group">
+              <div class="nav-group-title">Account</div>
+              
+                <a href="/settings" class="nav-item">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 3 7.6V7a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-chip" id="user-chip" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false" style="width:100%;">
+                <span class="avatar" id="user-avatar">?</span>
+                <span class="sidebar-user-info flex-1 min-w-0 text-left">
+                    <span class="block text-sm font-medium truncate" id="user-name" style="color:#fff;">Loading…</span>
+                    <span class="block text-xs truncate" id="user-email" style="color:rgba(255,255,255,.66);"></span>
+                </span>
+                <span class="sidebar-user-info sidebar-caret" style="color:rgba(255,255,255,.4);flex:none;">
+                    <svg class="dropdown-caret" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </span>
+            </div>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ========== Header ========== -->
+    <!-- ========== Header ========== -->
+    <header class="header" id="app-header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <h1 class="header-title" id="page-title">Calendar</h1>
+        </div>
+        <div class="header-right" id="header-actions">
+            <span class="text-xs text-muted" id="header-date"></span>
+            <a href="/applications" class="btn btn-outline btn-sm">View Applications</a>
+        </div>
+    </header>
+
+    <main id="main" class="app-main">
+        <section class="page-header mb-6">
+            <h2 class="page-title">Calendar & Follow-ups</h2>
+            <p class="page-subtitle">Track interviews, assessment deadlines, and follow-up dates.</p>
+        </section>
+
+        <div class="flex flex-col lg:flex-row gap-6 mb-6">
+            <div class="flex-1 lg:w-1/3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-semibold text-base">Upcoming Events</h3>
+                    </div>
+                    <div class="card-body p-0" id="upcoming-list">
+                        <!-- Upcoming events injected by JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 lg:w-2/3">
+                <div class="card">
+                    <div class="card-header flex justify-between items-center">
+                        <h3 class="font-semibold text-base">Agenda View</h3>
+                        <div class="flex gap-2">
+                            <button class="btn btn-outline btn-sm" id="view-week">Week</button>
+                            <button class="btn btn-outline btn-sm" id="view-month" aria-pressed="true">Month</button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0" id="agenda-view">
+                        <!-- Agenda view injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="font-semibold text-base">Overdue Follow-ups</h3>
+            </div>
+            <div class="card-body p-0" id="overdue-list">
+                <!-- Overdue follow-ups injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== Application Detail Modal ========== -->
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal" style="max-width: 640px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="detail-title">Application Details</h3>
+                <button class="close-modal" id="close-detail-modal" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body" id="detail-content"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="detail-edit-btn">Edit</button>
+                <button class="btn btn-danger" id="detail-delete-btn">Delete</button>
+                <button class="btn btn-outline" id="detail-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="js/dropdown.js"></script>
+    <script type="module" src="js/app-shell.js"></script>
+    <script type="module">
+        import { api } from './js/api.js';
+        import { formatDate, formatDateInput, isOverdue, isWithinDays, initials, escapeHtml, parseDate, showToast, statusBadgeClass, statusHistoryList, icon } from './js/utils.js';
+        import { confirmDialog } from './js/dialog.js';
+        import { mountShell } from './js/app-shell.js';
+
+        // ---- State ----
+        let apps = [];
+        let interviews = [];
+        let currentView = 'month'; // 'week' or 'month'
+
+        // ---- DOM refs ----
+        const upcomingList = document.getElementById('upcoming-list');
+        const agendaView = document.getElementById('agenda-view');
+        const overdueList = document.getElementById('overdue-list');
+        const detailModal = document.getElementById('detail-modal');
+        const detailContent = document.getElementById('detail-content');
+
+        // ---- Init ----
+        document.addEventListener('DOMContentLoaded', () => {
+            mountShell({ active: 'calendar', title: 'Calendar' });
+            loadCalendar();
+            setupDetailModal();
+            setupViewToggle();
+            setupEventLinks();
+        });
+
+        // Clicks on event rows open the same detail modal as the applications
+        // page. Inline onclick handlers cannot see module-scoped functions, so
+        // the lists delegate instead.
+        function setupEventLinks() {
+            [upcomingList, agendaView, overdueList].forEach(container => {
+                container.addEventListener('click', (e) => {
+                    const item = e.target.closest('[data-app-id]');
+                    if (item) viewApp(item.dataset.appId);
+                });
+                container.addEventListener('keydown', (e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    const item = e.target.closest('[data-app-id]');
+                    if (!item) return;
+                    e.preventDefault();
+                    viewApp(item.dataset.appId);
+                });
+            });
+        }
+
+        async function loadCalendar() {
+            showLoading();
+            try {
+                // Interview rounds live in their own collection; without them the
+                // calendar disagreed with Interview Prep.
+                const [appRes, ivRes] = await Promise.all([
+                    api.getAllApplications(),
+                    api.getInterviews()
+                ]);
+                apps = appRes.data || [];
+                interviews = ivRes.data || [];
+                renderCalendar();
+            } catch (err) {
+                console.error('Failed to load calendar:', err);
+                showError('Unable to load calendar. Please check your connection.');
+                showToast('Failed to load calendar data.', 'error');
+            }
+        }
+
+        function showLoading() {
+            upcomingList.innerHTML = agendaView.innerHTML = overdueList.innerHTML = 
+                `<div class="loading"><div class="spinner"></div><div class="loading-text">Loading calendar&hellip;</div></div>`;
+        }
+
+        function showError(msg) {
+            upcomingList.innerHTML = agendaView.innerHTML = overdueList.innerHTML = emptyState(msg, 'error');
+        }
+
+        function renderCalendar() {
+            if (!apps.length) {
+                upcomingList.innerHTML = agendaView.innerHTML = overdueList.innerHTML = emptyState('No applications yet. Add applications with dates to see them here.', 'empty');
+                return;
+            }
+
+            // Collect all dated events
+            const events = [];
+            const appById = new Map(apps.map(a => [a.id, a]));
+            const roundDates = new Set();
+
+            // Interview rounds created in Interview Prep are first-class events.
+            interviews.forEach(iv => {
+                const app = appById.get(iv.applicationId);
+                if (!app || !iv.interviewDate) return;
+                const date = String(iv.interviewDate).slice(0, 10);
+                roundDates.add(`${app.id}|${date}`);
+                events.push({
+                    id: app.id,
+                    date,
+                    type: 'interview',
+                    label: `${iv.interviewType}: ${app.jobRole}`,
+                    companyName: app.companyName,
+                    status: app.status,
+                    interviewId: iv.id,
+                });
+            });
+
+            apps.forEach(app => {
+                // The legacy application.interviewDate is only shown when no
+                // round already covers that day, so one interview is not listed
+                // twice.
+                if (app.interviewDate) {
+                    const date = String(app.interviewDate).slice(0, 10);
+                    if (!roundDates.has(`${app.id}|${date}`)) {
+                        events.push({
+                            id: app.id,
+                            date,
+                            type: 'interview',
+                            label: `Interview: ${app.jobRole}`,
+                            companyName: app.companyName,
+                            status: app.status,
+                        });
+                    }
+                }
+                if (app.followUpDate) {
+                    events.push({
+                        id: app.id,
+                        date: String(app.followUpDate).slice(0, 10),
+                        type: 'followup',
+                        label: `Follow-up: ${app.companyName}`,
+                        companyName: app.companyName,
+                        status: app.status,
+                    });
+                }
+                if (app.deadline) {
+                    events.push({
+                        id: app.id,
+                        date: String(app.deadline).slice(0, 10),
+                        type: 'deadline',
+                        label: `Deadline: ${app.jobRole}`,
+                        companyName: app.companyName,
+                        status: app.status,
+                    });
+                }
+            });
+
+            // Sort by date
+            events.sort((a, b) => parseDate(a.date) - parseDate(b.date));
+
+            // Upcoming (next 30 days, not overdue)
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+            const thirtyDays = new Date(now);
+            thirtyDays.setDate(now.getDate() + 30);
+
+            // No silent caps: the agenda view is the complete list, and the
+            // summary lists show every event in their window.
+            const upcoming = events.filter(e => {
+                const d = parseDate(e.date);
+                return d && d >= now && d <= thirtyDays;
+            });
+
+            // Overdue
+            const overdue = events.filter(e => {
+                const d = parseDate(e.date);
+                return d && d < now;
+            });
+
+            // Render upcoming list
+            renderUpcomingList(upcoming);
+
+            // Render agenda view
+            renderAgendaView(events);
+
+            // Render overdue
+            renderOverdueList(overdue);
+        }
+
+        function renderUpcomingList(events) {
+            if (!events.length) {
+                upcomingList.innerHTML = `
+                    <div class="empty-state" style="padding: var(--space-8);">
+                        <div class="empty-state-icon" style="width:32px;height:32px;">${icon('calendar')}</div>
+                        <div class="empty-state-title" style="font-size: var(--font-size-sm);">No upcoming events</div>
+                        <div class="empty-state-desc" style="font-size: var(--font-size-xs);">Events with dates in the next 30 days will appear here.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            upcomingList.innerHTML = events.map(e => `
+                <div class="activity-item border-b border-border" data-app-id="${escapeHtml(e.id)}" role="button" tabindex="0" style="cursor:pointer;">
+                    <div class="activity-icon ${eventTypeColor(e.type)}" style="color: white;">${eventTypeIcon(e.type)}</div>
+                    <div class="activity-content">
+                        <div class="activity-title">${e.label}</div>
+                        <div class="activity-meta">
+                            <span>${escapeHtml(e.companyName)}</span>
+                            <span>${formatDate(e.date)} ${isOverdue(e.date) ? '(Overdue)' : ''}</span>
+                            <span class="badge ${statusBadgeClass(e.status)}">${escapeHtml(e.status)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAgendaView(events) {
+            if (!events.length) {
+                agendaView.innerHTML = `
+                    <div class="empty-state" style="padding: var(--space-12);">
+                        <div class="empty-state-icon" style="width:48px;height:48px;">${icon('clipboard')}</div>
+                        <div class="empty-state-title">No dated events</div>
+                        <div class="empty-state-desc">Add interviews, follow-ups, or deadlines to your applications to see them here.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group by date
+            const grouped = {};
+            events.forEach(e => {
+                const dateKey = String(e.date).slice(0, 10);
+                if (!grouped[dateKey]) grouped[dateKey] = [];
+                grouped[dateKey].push(e);
+            });
+
+            const sortedDates = Object.keys(grouped).sort();
+
+            agendaView.innerHTML = sortedDates.map(dateKey => {
+                const date = new Date(dateKey + 'T00:00:00');
+                const dayEvents = grouped[dateKey];
+                const isOverdueDay = date < new Date(new Date().setHours(0,0,0,0));
+                
+                return `
+                    <div class="mb-6">
+                        <div class="px-4 py-2 ${isOverdueDay ? 'bg-error-light text-error' : 'bg-secondary-light text-secondary'} font-semibold text-sm rounded-t-lg border-b border-border">
+                            ${date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                            ${isOverdueDay ? ' <span class="text-xs font-normal">(Overdue)</span>' : ''}
+                        </div>
+                        ${dayEvents.map(e => `
+                            <div class="activity-item border-b border-border px-4" data-app-id="${escapeHtml(e.id)}" role="button" tabindex="0" style="cursor:pointer;">
+                                <div class="activity-icon ${eventTypeColor(e.type)}" style="color: white;">${eventTypeIcon(e.type)}</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">${e.label}</div>
+                                    <div class="activity-meta">
+                                        <span>${escapeHtml(e.companyName)}</span>
+                                        <span class="badge ${statusBadgeClass(e.status)}">${escapeHtml(e.status)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderOverdueList(events) {
+            if (!events.length) {
+                overdueList.innerHTML = `
+                    <div class="empty-state" style="padding: var(--space-8);">
+                        <div class="empty-state-icon" style="width:32px;height:32px;">${icon('checkCircle')}</div>
+                        <div class="empty-state-title" style="font-size: var(--font-size-sm);">No overdue follow-ups</div>
+                        <div class="empty-state-desc" style="font-size: var(--font-size-xs);">All caught up!</div>
+                    </div>
+                `;
+                return;
+            }
+
+            overdueList.innerHTML = events.map(e => `
+                <div class="activity-item border-b border-border border-error-light bg-error-light" data-app-id="${escapeHtml(e.id)}" role="button" tabindex="0" style="cursor:pointer;">
+                    <div class="activity-icon bg-error" style="color: white;">${eventTypeIcon(e.type)}</div>
+                    <div class="activity-content">
+                        <div class="activity-title">${e.label}</div>
+                        <div class="activity-meta">
+                            <span>${escapeHtml(e.companyName)}</span>
+                            <span class="text-error font-medium">Was due ${formatDate(e.date)}</span>
+                            <span class="badge ${statusBadgeClass(e.status)}">${escapeHtml(e.status)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function eventTypeColor(type) {
+            return type === 'interview' ? 'bg-primary' : type === 'followup' ? 'bg-warning' : 'bg-secondary';
+        }
+
+        function eventTypeIcon(type) {
+            if (type === 'interview') return icon('briefcase');
+            if (type === 'followup') return icon('phone');
+            return icon('clock');
+        }
+
+        // ---- Detail Modal ----
+        function viewApp(id) {
+            const app = apps.find(a => a.id === id);
+            if (!app) { showToast('Application not found.', 'error'); return; }
+
+            const salaryDisplay = app.salaryMin || app.salaryMax
+                ? [app.salaryMin, app.salaryMax].filter(Boolean).join(' - ')
+                : null;
+
+            detailContent.innerHTML = `
+                <div class="mb-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-lg bg-primary-light flex items-center justify-center text-primary font-bold">${initials(app.companyName)}</div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-main">${escapeHtml(app.companyName)}</h4>
+                            <p class="text-sm text-secondary">${escapeHtml(app.jobRole)}</p>
+                        </div>
+                        <span class="badge ${statusBadgeClass(app.status)} ml-auto">${escapeHtml(app.status)}</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><span class="text-xs text-muted block">Application Date</span><span class="text-sm font-medium">${formatDate(app.applicationDate)}</span></div>
+                    <div><span class="text-xs text-muted block">Priority</span><span class="text-sm font-medium">${escapeHtml(app.priority || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Work Mode</span><span class="text-sm font-medium">${escapeHtml(app.workMode || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Employment Type</span><span class="text-sm font-medium">${escapeHtml(app.employmentType || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Location</span><span class="text-sm font-medium">${escapeHtml(app.location || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Job Source</span><span class="text-sm font-medium">${escapeHtml(app.jobSource || '—')}</span></div>
+                    <div><span class="text-xs text-muted block">Follow-up Date</span><span class="text-sm font-medium ${app.followUpDate && isOverdue(app.followUpDate) ? 'text-error' : ''}">${formatDate(app.followUpDate)}</span></div>
+                    <div><span class="text-xs text-muted block">Interview Date</span><span class="text-sm font-medium">${formatDate(app.interviewDate)}</span></div>
+                    <div><span class="text-xs text-muted block">Deadline</span><span class="text-sm font-medium">${formatDate(app.deadline)}</span></div>
+                    <div><span class="text-xs text-muted block">Salary Range</span><span class="text-sm font-medium">${salaryDisplay || '—'}</span></div>
+                </div>
+                ${app.recruiterName || app.recruiterEmail ? `
+                <div class="mb-4 p-3 rounded-lg bg-slate-50 border border-border">
+                    <span class="text-xs font-semibold text-secondary block mb-1">Recruiter</span>
+                    ${app.recruiterName ? `<div class="text-sm">${escapeHtml(app.recruiterName)}</div>` : ''}
+                    ${app.recruiterEmail ? `<div class="text-sm text-secondary">${escapeHtml(app.recruiterEmail)}</div>` : ''}
+                </div>` : ''}
+                ${app.tags && app.tags.length ? `
+                <div class="mb-4">
+                    <span class="text-xs font-semibold text-secondary block mb-2">Tags</span>
+                    <div class="flex flex-wrap gap-1">${app.tags.map(t => `<span class="badge badge-secondary text-xs">${escapeHtml(t)}</span>`).join('')}</div>
+                </div>` : ''}
+                ${app.jobLink ? `
+                <div class="mb-4">
+                    <a href="${escapeHtml(app.jobLink)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">View Job Posting &rarr;</a>
+                </div>` : ''}
+                ${app.notes ? `
+                <div>
+                    <span class="text-xs font-semibold text-secondary block mb-1">Notes</span>
+                    <p class="text-sm text-secondary whitespace-pre-wrap">${escapeHtml(app.notes)}</p>
+                </div>` : ''}
+                <div class="mt-4">
+                    <span class="text-xs font-semibold text-secondary block mb-2">Status history</span>
+                    ${statusHistoryList(app.statusHistory)}
+                </div>
+            `;
+
+            detailModal.dataset.appId = id;
+            detailModal.classList.add('open');
+        }
+
+        function setupDetailModal() {
+            const closeBtn = document.getElementById('close-detail-modal');
+            const closeBtn2 = document.getElementById('detail-close-btn');
+            const editBtn = document.getElementById('detail-edit-btn');
+            const deleteBtn = document.getElementById('detail-delete-btn');
+
+            const closeModal = () => detailModal.classList.remove('open');
+            closeBtn.addEventListener('click', closeModal);
+            closeBtn2.addEventListener('click', closeModal);
+            detailModal.addEventListener('click', (e) => { if (e.target === detailModal) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+            editBtn.addEventListener('click', () => {
+                const id = detailModal.dataset.appId;
+                if (id) { closeModal(); window.location.href = '/applications#edit-' + id; }
+            });
+            deleteBtn.addEventListener('click', () => {
+                const id = detailModal.dataset.appId;
+                if (id) { closeModal(); confirmDelete(id); }
+            });
+        }
+
+        // ---- Delete Confirmation ----
+        async function confirmDelete(id) {
+            const app = apps.find(a => a.id === id);
+            if (!app) return;
+            const confirmed = await confirmDialog({
+                title: 'Delete application?',
+                message: `Delete the application at ${app.companyName}? Interview rounds linked to it are removed too. This cannot be undone.`,
+                confirmLabel: 'Delete application',
+                tone: 'danger'
+            });
+            if (confirmed) deleteApp(id);
+        }
+
+        async function deleteApp(id) {
+            try {
+                await api.deleteApplication(id);
+                showToast('Application deleted successfully.');
+                loadCalendar();
+            } catch (err) {
+                console.error('Delete failed:', err);
+                showToast(err.message || 'Failed to delete application.', 'error');
+            }
+        }
+
+        function emptyState(msg, type = 'empty') {
+            const glyph = type === 'error' ? icon('alert') : icon('inbox');
+            return `
+                <div class="empty-state" style="padding: var(--space-12) var(--space-8);">
+                    <div class="empty-state-icon" style="width:48px;height:48px;">${glyph}</div>
+                    <div class="empty-state-title">${escapeHtml(msg)}</div>
+                    ${type === 'empty' ? `<p class="empty-state-desc">Add applications with dates to get started.</p>` : ''}
+                </div>
+            `;
+        }
+
+        // ---- View Toggle ----
+        function setupViewToggle() {
+            const weekBtn = document.getElementById('view-week');
+            const monthBtn = document.getElementById('view-month');
+            
+            weekBtn.addEventListener('click', () => {
+                currentView = 'week';
+                weekBtn.setAttribute('aria-pressed', 'true');
+                monthBtn.setAttribute('aria-pressed', 'false');
+                weekBtn.classList.add('bg-primary', 'text-white');
+                weekBtn.classList.remove('btn-outline');
+                monthBtn.classList.remove('bg-primary', 'text-white');
+                monthBtn.classList.add('btn-outline');
+                // Re-render with week view logic
+            });
+            monthBtn.addEventListener('click', () => {
+                currentView = 'month';
+                monthBtn.setAttribute('aria-pressed', 'true');
+                weekBtn.setAttribute('aria-pressed', 'false');
+                monthBtn.classList.add('bg-primary', 'text-white');
+                monthBtn.classList.remove('btn-outline');
+                weekBtn.classList.remove('bg-primary', 'text-white');
+                weekBtn.classList.add('btn-outline');
+            });
+        }
+    </script>
+</body>
+</html>
