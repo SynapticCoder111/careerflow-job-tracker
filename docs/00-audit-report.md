@@ -721,7 +721,8 @@ npm test                  -> 97 / 91 / 66 pass, 23.8s
 8 workspace pages         -> 0 console errors
 ```
 
-**Not done, by design:** no Git repository was initialised, nothing was
-committed, pushed or deployed. The decision to create commits was left to the
-project owner, because the working directory was not a repository when the audit
-began.
+**Version control.** The working directory was not a repository when the audit
+began, so no per-phase history exists. After the work was complete the owner
+authorised initialising one, and the finished state is recorded as a single
+initial commit (`ffc3469`, 61 files) on `main`. `.env`, `node_modules` and log
+files are excluded by `.gitignore`. Nothing was pushed or deployed.
