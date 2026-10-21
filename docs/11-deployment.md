@@ -41,8 +41,9 @@ never be committed; the HTTP server cannot serve it in any case.
 3. Use the SRV connection string with `retryWrites=true&w=majority`.
 4. The app creates collections and indexes on first write; no migration step is
    required.
-5. Optional demo data: `node seed-demo.js` (from the project root, with
-   `server/.env` present).
+5. **Do not seed demo data in production.** `seed-demo.js` is development-only;
+   it refuses when `NODE_ENV=production` or when the server reports production,
+   and it refuses while legacy adoption is enabled.
 
 Backups: use the database provider's snapshots. The app's JSON backup is
 per-user and is not a substitute for a database backup.
@@ -191,7 +192,7 @@ additive.
 |---|---|
 | Logs | Platform log stream, or `journalctl -u careerflow -f` |
 | Restart | `systemctl restart careerflow` (sessions survive) |
-| Demo data | `node seed-demo.js` from the root |
+| Demo data | Development only: `node seed-demo.js --yes` (refuses in production) |
 | Tests | `cd server && npm test` (starts its own instance on 3100) |
 | Backup | Provider snapshot; per-user JSON export lives in Settings |
 

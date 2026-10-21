@@ -1,6 +1,6 @@
 # Testing
 
-Three suites, 254 assertions, one command. No test framework is installed; the
+Three suites, 271 assertions, one command. No test framework is installed; the
 suites use Node's built-in `fetch`, `node --check` and plain assertions.
 
 ```bash
@@ -11,7 +11,7 @@ npm test
 ```
 ──────── test-static.js ────────   PASSED: 97   FAILED: 0
 ──────── test-suite.js ────────    PASSED: 91   FAILED: 0
-──────── test-auth.js ────────     PASSED: 66   FAILED: 0
+──────── test-auth.js ────────     PASSED: 83   FAILED: 0
 ════════ SUMMARY ════════
 PASS  test-static.js
 PASS  test-suite.js
@@ -79,20 +79,21 @@ which was fixed in the checker rather than by weakening the assertion.
 The suite creates and deletes its own records. It does not touch the demo
 account.
 
-## 4. Auth suite — 66 assertions
+## 4. Auth suite — 83 assertions
 
 `test-auth.js` is about boundaries rather than happy paths.
 
 | Section | What it proves |
 |---|---|
-| 1. Public routes | `/`, `/login`, `/register` are `200`; the landing page has no fake testimonials or invented user counts |
+| 1. Public routes | `/`, `/login`, `/register` are `200`; the landing page has no fake testimonials or invented user counts; health reports the environment and demo policy |
 | 2. Protected pages | All eight private routes redirect to `/login` when signed out |
 | 3. Protected APIs | Applications, interviews and analytics return `401` for anonymous callers |
 | 4. Registration | `201`, duplicate → `409`, weak password → `400`, **bodyless request → `400` not `500`** |
 | 5. Isolation | Second user sees an empty workspace; read/update/delete of a foreign application → `404`; read/update/delete of a foreign round → `404`; attaching a round to a foreign application → `404`; bulk delete removes only the caller's records; analytics for the second user report zero and `null` rates |
 | 6. Login/logout | Wrong password `401`, bodyless login `400`, correct password `200`, cookie grants access, logout invalidates the session |
 | 7. Rate limiting | Five failures `401`, sixth `429` with `code: RATE_LIMITED`, a different account is unaffected, a success resets the budget |
-| 8. Password hashing | `passwordHash` never appears in a response |
+| 8. Hashing and cookies | Hash uses the current scrypt parameters; correct/wrong/tampered/malformed hashes behave; legacy hashes verify and are flagged for upgrade; `HttpOnly`, `SameSite=Lax`, `Path=/` on the session cookie |
+| 9. Demo guards | Seeding exits non-zero without `--yes` and in production; both refusals name the reason |
 
 The isolation section is the one to read when reviewing authorisation: it proves
 the server, not the UI, is enforcing ownership.
@@ -136,8 +137,9 @@ imports, missing exports and dead asset paths fail the build.
   `sam.<ms>@example.com`), so runs never collide.
 - The suite deletes what it creates; the last section asserts an empty
   workspace.
-- `seed-demo.js` is separate and idempotent enough for repeated use:
-  `demo@careerflow.app` / `careerflow2026`, ten applications and six rounds.
+- `seed-demo.js` is a separate, explicit tool: it requires `--yes`, refuses in
+  production, and prints a generated password once. Re-seeding an existing demo
+  account requires `DEMO_PASSWORD`.
 
 ## 8. Adding a test
 

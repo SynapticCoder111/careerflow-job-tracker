@@ -21,8 +21,18 @@ Every response error has the same shape:
 No auth. Always `200`.
 
 ```json
-{ "status": "ok", "message": "Backend is working correctly", "authenticated": true }
+{
+  "status": "ok",
+  "message": "Backend is working correctly",
+  "authenticated": true,
+  "environment": "development",
+  "demoSeedingAllowed": true
+}
 ```
+
+`environment` and `demoSeedingAllowed` exist so the demo seeder can refuse a
+production deployment or a database where legacy adoption could claim ownerless
+records. They describe policy, not secrets.
 
 ---
 

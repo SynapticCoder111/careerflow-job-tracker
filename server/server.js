@@ -127,6 +127,12 @@ app.get("/api/health", function (req, res) {
     status: "ok",
     message: "Backend is working correctly",
     authenticated: !!req.user,
+    // Used by seed-demo.js to refuse to touch a production deployment or a
+    // database where legacy rows could be adopted by the demo account.
+    environment: process.env.NODE_ENV || "development",
+    demoSeedingAllowed:
+      process.env.NODE_ENV !== "production" &&
+      process.env.ALLOW_LEGACY_ADOPTION !== "true",
   });
 });
 

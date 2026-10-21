@@ -1,4 +1,9 @@
 /* Authentication + isolation test suite */
+const crypto = require('crypto');
+const path = require('path');
+const { spawnSync } = require('child_process');
+const { hashPassword, verifyPassword, needsRehash } = require('./server/utils/password');
+
 const BASE = process.env.BASE_URL || 'http://localhost:3000';
 let pass = 0, fail = 0;
 const check = (name, cond, extra) => {
@@ -30,6 +35,10 @@ async function main() {
   check('landing has no fake testimonials', !landing.toLowerCase().includes('testimonial'));
   check('landing has no fake user counts', !/\d+[k+]?\s*(users|customers|companies using)/i.test(landing));
 
+  const health = await (await fetch(BASE + '/api/health')).json();
+  check('health reports the environment', typeof health.environment === 'string' && health.environment.length > 0, health.environment);
+  check('health reports the demo seeding policy', typeof health.demoSeedingAllowed === 'boolean', health.demoSeedingAllowed);
+
   console.log('\n=== 2. PROTECTED PAGE REDIRECTS ===');
   for (const p of ['/dashboard', '/applications', '/pipeline', '/calendar', '/companies', '/interview-prep', '/analytics', '/settings']) {
     const r = await fetch(BASE + p, { redirect: 'manual' });
@@ -53,6 +62,7 @@ async function main() {
   });
   const regBody = await reg.json();
   capture(reg, c1);
+  const regSetCookie = (reg.headers.getSetCookie ? reg.headers.getSetCookie() : []).join('; ');
   check('register returns 201', reg.status === 201, reg.status);
   check('register sets a session cookie', !!c1.cookie);
   check('register returns the user id', !!regBody.data?.id);
@@ -223,11 +233,49 @@ async function main() {
   check('correct password still signs in during the window', goodAgain.status === 200, goodAgain.status);
   check('successful sign-in clears the failure budget', (await tryLogin(email, 'wrong-password')).status === 401);
 
-  console.log('\n=== 8. PASSWORD HASHING ===');
-  const { User } = { User: null };
+  console.log('\n=== 8. PASSWORD STORAGE AND COOKIE FLAGS ===');
   // Verify via the API that the stored hash is not the plaintext
   const leaked = await (await fetch(BASE + '/api/auth/me', { headers: headers(c1) })).text();
   check('plaintext password never appears in a response', !leaked.includes('careerflow2026'));
+
+  const hash = hashPassword('unit-password-1');
+  check('hash uses the current scrypt parameters', /^scrypt\$65536\$8\$2\$/.test(hash), hash.split('$').slice(0, 4).join('$'));
+  check('correct password verifies', verifyPassword('unit-password-1', hash) === true);
+  check('wrong password is rejected', verifyPassword('unit-password-2', hash) === false);
+  check('tampered hash is rejected', verifyPassword('unit-password-1', hash.slice(0, -4) + 'AAAA') === false);
+  check('malformed hash is rejected', verifyPassword('unit-password-1', 'scrypt$broken') === false);
+  check('current hash needs no upgrade', needsRehash(hash) === false);
+
+  const legacySalt = crypto.randomBytes(16);
+  const legacyKey = crypto.scryptSync('legacy-password-1', legacySalt, 64, {
+    N: 16384, r: 8, p: 1, maxmem: 128 * 1024 * 1024,
+  });
+  const legacyHash = `scrypt$16384$8$1$${legacySalt.toString('base64')}$${legacyKey.toString('base64')}`;
+  check('legacy hashes still verify', verifyPassword('legacy-password-1', legacyHash) === true);
+  check('legacy hash is flagged for upgrade', needsRehash(legacyHash) === true);
+
+  check('session cookie is HttpOnly', /HttpOnly/i.test(regSetCookie));
+  check('session cookie is SameSite=Lax', /SameSite=Lax/i.test(regSetCookie));
+  check('session cookie is scoped to /', /Path=\//i.test(regSetCookie));
+
+  console.log('\n=== 9. DEMO SEEDING GUARDS ===');
+  const seedPath = path.join(__dirname, 'seed-demo.js');
+
+  const noFlag = spawnSync(process.execPath, [seedPath], {
+    encoding: 'utf8',
+    timeout: 15000,
+    env: { ...process.env, NODE_ENV: 'development', DEMO_BASE_URL: 'http://127.0.0.1:1' },
+  });
+  check('demo seeding refuses without --yes', noFlag.status !== 0, noFlag.status);
+  check('refusal names the opt-in flag', /--yes/.test(noFlag.stderr || ''), noFlag.stderr);
+
+  const prodSeed = spawnSync(process.execPath, [seedPath, '--yes'], {
+    encoding: 'utf8',
+    timeout: 15000,
+    env: { ...process.env, NODE_ENV: 'production' },
+  });
+  check('demo seeding refuses in production', prodSeed.status !== 0, prodSeed.status);
+  check('production refusal is explicit', /production/i.test(prodSeed.stderr || ''), prodSeed.stderr);
 
   console.log('\n========================================');
   console.log('  PASSED: ' + pass + '   FAILED: ' + fail);

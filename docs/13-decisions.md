@@ -42,12 +42,17 @@ complicate per-round queries.
 ## ADR-003 — scrypt for passwords
 
 **Context.** Password hashing must be slow, salted and dependency-free.
-**Decision.** Node's built-in `crypto.scryptSync` with N=16384, r=8, p=1, a
-16-byte salt and a 64-byte key, stored as a self-describing string.
-**Consequences.** No native build step; timing-safe verification. Parameters are
-in the stored string, so they can be raised and old hashes upgraded on login.
+**Decision.** Node's built-in `crypto.scryptSync` with N=2¹⁶, r=8, p=2, a
+16-byte salt and a 64-byte key, stored as a self-describing string. Unknown
+emails are verified against a real dummy hash generated with the same
+parameters, so timing does not reveal whether an account exists.
+**Consequences.** No native build step; timing-safe verification; roughly 300 ms
+of blocking work per attempt, bounded by the rate limiter. Parameters are in the
+stored string, so they can be raised and old hashes are upgraded after a
+successful sign-in.
 **Rejected.** bcrypt (`node-gyp` on some hosts), argon2 (native module), plain
-SHA-256 (fast and wrong).
+SHA-256 (fast and wrong), a short placeholder dummy hash (fast enough to leak
+account existence through timing).
 
 ---
 
@@ -261,3 +266,22 @@ replaced with a button in the real markup.
 markup by accident.
 **Rejected.** Keeping it "for future use" (dead code that contradicts current
 patterns).
+
+---
+
+## ADR-019 — Demo seeding is a guarded script, not a startup feature
+
+**Context.** The demo seeder contained a fixed default password that was also
+published in the README. Running the server never seeded anything, but the
+credential was reusable and the script had no production guard.
+**Decision.** Keep seeding as a standalone development tool, and require four
+conditions: `--yes`, a non-production local environment, a server that does not
+report `environment: "production"`, and legacy adoption being off. Generate a
+random password unless the operator supplies `DEMO_PASSWORD`.
+**Consequences.** No repository-wide demo credential exists. A fresh clone has no
+demo account until someone explicitly seeds one. Re-seeding an existing account
+requires its password. The script's own failures are covered by tests.
+**Rejected.** Seeding on startup (production risk), a fixed documented password
+(reusable credential), deleting and recreating the demo account automatically
+(destructive and surprising), making demo data a special role (more privilege,
+not less).

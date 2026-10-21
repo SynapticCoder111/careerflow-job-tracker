@@ -1,13 +1,55 @@
 /**
- * Seeds a demo account with a realistic set of applications and interview
- * rounds, so every page can be explored with real data.
+ * Seeds a disposable demo account with applications and interview rounds so
+ * every page can be explored locally.
  *
- *   node seed-demo.js [email] [password]
+ *   node seed-demo.js --yes
+ *
+ * Safety rules:
+ * - Development only. Refuses when NODE_ENV=production, and also when the
+ *   target server reports a production environment or legacy adoption.
+ * - Explicitly opt-in: it does nothing without --yes.
+ * - No built-in password. One is generated and printed once. Set
+ *   DEMO_PASSWORD only to re-seed an existing demo account.
+ * - The demo user is an ordinary account: it can only read and modify records
+ *   whose userId is its own, and seeding clears just those records.
+ *
+ * Env: DEMO_BASE_URL, DEMO_EMAIL, DEMO_PASSWORD.
  */
-const BASE = 'http://localhost:3000';
+const crypto = require('crypto');
 
-const EMAIL = process.argv[2] || 'demo@careerflow.app';
-const PASSWORD = process.argv[3] || 'careerflow2026';
+const BASE = process.env.DEMO_BASE_URL || 'http://localhost:3000';
+const EMAIL = process.env.DEMO_EMAIL || 'demo@careerflow.app';
+const PROVIDED_PASSWORD = process.env.DEMO_PASSWORD || '';
+const CONFIRMED = process.argv.includes('--yes');
+
+if (!CONFIRMED) {
+  console.error('Refusing to seed: this creates a disposable demo account.');
+  console.error('Re-run with --yes to confirm.');
+  process.exit(1);
+}
+if (process.env.NODE_ENV === 'production') {
+  console.error('Refusing to seed demo data in production (NODE_ENV=production).');
+  process.exit(1);
+}
+if (process.env.ALLOW_LEGACY_ADOPTION === 'true') {
+  console.error(
+    'Refusing to seed while ALLOW_LEGACY_ADOPTION=true: the demo account could adopt ownerless records.'
+  );
+  process.exit(1);
+}
+
+function generatePassword() {
+  // Guaranteed letter + digit, ~28 characters, 72+ bits of randomness.
+  return (
+    'demo-' +
+    crypto.randomBytes(9).toString('base64url') +
+    '-' +
+    crypto.randomBytes(2).toString('hex') +
+    '1a'
+  );
+}
+
+const PASSWORD = PROVIDED_PASSWORD || generatePassword();
 
 let cookie = '';
 
@@ -45,6 +87,24 @@ const INTERVIEWS = [
 ];
 
 async function main() {
+  // 0. Verify the target is a development server that may hold demo data.
+  const health = await api('/api/health');
+  if (health.status !== 200) {
+    console.error('Server is not reachable at', BASE);
+    process.exitCode = 1;
+    return;
+  }
+  if (health.body?.environment === 'production') {
+    console.error('Refusing to seed: the server reports a production environment.');
+    process.exitCode = 1;
+    return;
+  }
+  if (health.body?.demoSeedingAllowed === false) {
+    console.error('Refusing to seed: demo seeding is disabled on this server.');
+    process.exitCode = 1;
+    return;
+  }
+
   // 1. Create or sign in
   const reg = await api('/api/auth/register', {
     method: 'POST',
@@ -53,6 +113,12 @@ async function main() {
   });
 
   if (reg.status === 409) {
+    if (!PROVIDED_PASSWORD) {
+      console.error('A demo account already exists for', EMAIL + '.');
+      console.error('Set DEMO_PASSWORD to its password to re-seed it, or remove that account first.');
+      process.exitCode = 1;
+      return;
+    }
     const login = await api('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -128,9 +194,14 @@ async function main() {
   }
   console.log('Seeded', ivCount, 'interview rounds');
 
-  console.log('\nSign in with:');
+  console.log('\nDemo account (disposable; local development only)');
   console.log('  email:    ' + EMAIL);
-  console.log('  password: ' + PASSWORD);
+  if (PROVIDED_PASSWORD) {
+    console.log('  password: the DEMO_PASSWORD you supplied');
+  } else {
+    console.log('  password: ' + PASSWORD + '   (generated; shown once)');
+  }
+  console.log('  It sees only the demo records it created. Do not reuse a personal password.');
 }
 
 main().catch((e) => { console.error('FATAL:', e.message); process.exitCode = 1; });

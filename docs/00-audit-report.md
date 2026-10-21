@@ -726,3 +726,60 @@ began, so no per-phase history exists. After the work was complete the owner
 authorised initialising one, and the finished state is recorded as a single
 initial commit (`ffc3469`, 61 files) on `main`. `.env`, `node_modules` and log
 files are excluded by `.gitignore`. Nothing was pushed or deployed.
+
+---
+
+## 15. Pre-publication authentication review
+
+A second review focused on passwords, sessions, and demo data, performed before
+the first push.
+
+### 15.1 Confirmed weaknesses and fixes
+
+| Finding | Evidence | Fix |
+|---|---|---|
+| scrypt cost below current OWASP guidance | `N=16384, r=8, p=1` in `server/utils/password.js` | Raised to `N=65536, r=8, p=2` (64 MiB, two iterations) |
+| Unknown-email timing defence was ineffective | The dummy hash decoded to a 3-byte key, so the scrypt work was negligible compared with a real 64-byte verification | A real dummy hash is generated at startup with the current parameters and verified for every unknown email |
+| Legacy hashes verified faster than the dummy hash | Measurement: ~100 ms for an un-migrated account vs ~390 ms for an unknown email, leaking which accounts predate the upgrade | A 400 ms floor on failed responses; successful sign-ins are unaffected |
+| No upgrade path for old hashes | Parameters were parsed for verification but never rewritten | `needsRehash()` plus a re-hash after a successful sign-in; verified by a unit assertion using an N=16384 hash |
+| Demo password was hardcoded and published | `seed-demo.js` defaulted to a fixed password; README and testing docs repeated it | Removed from code and all docs; the script generates a strong password and prints it once |
+| Demo seeding had no production guard | The script would seed any reachable server | Refuses without `--yes`; refuses `NODE_ENV=production`; checks `/api/health` for a production environment; refuses while legacy adoption is enabled |
+| Password could be passed on the command line | `node seed-demo.js [email] [password]` exposed it in shell history and process listings | Password now comes only from a generated value or the `DEMO_PASSWORD` environment variable |
+
+### 15.2 What was re-verified
+
+| Check | Result |
+|---|---|
+| `passwordHash` never appears in an API response | Passes (`/me`, register, login) |
+| Plaintext never stored or logged | No log statement prints a password; only the one-time seed output does |
+| No password in browser storage | Only display preferences are written to `localStorage` |
+| Cookie flags | `HttpOnly`, `SameSite=Lax`, `Path=/`; `Secure` under `NODE_ENV=production` |
+| Session expiry and logout | Explicit expiry check plus TTL index; logout deletes the row and the suite proves the cookie stops working |
+| Generic sign-in errors | Same `401` message for unknown email and wrong password |
+| Rate limiting | Account and IP budgets; `429` with `Retry-After`; success resets the account budget |
+| Ownership enforcement | Cross-user read/update/delete/attach all return `404`; analytics for the second account report zero |
+| Demo isolation | The demo account is an ordinary user; seeding uses the normal `userId`-scoped API |
+| History scan | No secret patterns; `.env` never committed; only `.env.example` appears in history |
+| `.env.example` | Placeholders only, matching the variables the code reads |
+
+### 15.3 Test totals after the review
+
+```
+node test-static.js -> PASSED: 97  FAILED: 0
+node test-suite.js  -> PASSED: 91  FAILED: 0
+node test-auth.js   -> PASSED: 83  FAILED: 0
+npm test            -> 271 assertions, 25.0s
+```
+
+The auth suite now covers hash parameters, correct/wrong/tampered/malformed
+verification, legacy hash upgrade, cookie flags, health policy fields, and both
+demo-seeding refusals.
+
+### 15.4 Remaining, stated rather than hidden
+
+- `scryptSync` blocks the event loop for ~300 ms per verification. The rate
+  limiter bounds this; a high-traffic deployment should move to async scrypt.
+- No CSRF token (SameSite + JSON + CORS) and no CSP yet.
+- The production refusal is tested locally; the server-reported production check
+  is implemented and covered by reading `/api/health`, but no real production
+  deployment was used to exercise it.

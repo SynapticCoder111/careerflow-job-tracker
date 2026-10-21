@@ -1,16 +1,33 @@
 const express = require("express");
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 const User = require("../models/User");
 const Session = require("../models/Session");
 const Application = require("../models/Application");
 const Interview = require("../models/Interview");
-const { hashPassword, verifyPassword, validatePassword } = require("../utils/password");
+const {
+  hashPassword,
+  verifyPassword,
+  needsRehash,
+  validatePassword,
+} = require("../utils/password");
 const { requireAuth, createSession, destroySession } = require("../middleware/auth");
 const { loginLimiter, loginIpLimiter, registerLimiter } = require("../middleware/rateLimit");
 
 const router = express.Router();
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// Verifying an unknown email must cost the same as verifying a real one.
+// This hash is produced once with the current parameters, so both paths run
+// the same scrypt work and return in comparable time.
+const DUMMY_PASSWORD_HASH = hashPassword(crypto.randomBytes(32).toString("hex"));
+
+// Accounts created before the parameter upgrade still verify with the faster
+// legacy cost. A floor on failed responses keeps the endpoint from revealing
+// which case applied; successful sign-ins do not need it.
+const LOGIN_FAILURE_FLOOR_MS = 400;
+
 
 // Legacy adoption is a one-time operational migration, not normal behaviour.
 // It is off unless an operator explicitly opts in.
@@ -118,19 +135,36 @@ router.post("/login", loginLimiter, loginIpLimiter, async function (req, res) {
   }
 
   try {
+    const startedAt = Date.now();
     const user = await User.findOne({ email }).select("+passwordHash");
 
     // Always run a verification so the response time does not reveal
     // whether the email exists.
-    const hash = user ? user.passwordHash : "scrypt$16384$8$1$AAAAAAAAAAAAAAAAAAAAAA==$AAAA";
+    const hash = user ? user.passwordHash : DUMMY_PASSWORD_HASH;
     const ok = verifyPassword(password, hash);
 
     if (!user || !ok) {
+      const elapsed = Date.now() - startedAt;
+      if (elapsed < LOGIN_FAILURE_FLOOR_MS) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, LOGIN_FAILURE_FLOOR_MS - elapsed)
+        );
+      }
       return res.status(401).json({
         success: false,
         message: "Incorrect email or password.",
         errors: { password: "Incorrect email or password." },
       });
+    }
+
+    // Transparently upgrade hashes created with older scrypt parameters.
+    if (needsRehash(user.passwordHash)) {
+      try {
+        user.passwordHash = hashPassword(password);
+        await user.save();
+      } catch (err) {
+        console.error("Password rehash failed:", err.message);
+      }
     }
 
     // A correct password clears this account's failed-attempt budget. The

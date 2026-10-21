@@ -35,9 +35,10 @@ that delete a parent record:
 | `passwordHash` | String | Required, **`select: false`** — never loaded unless explicitly requested |
 | `createdAt`, `updatedAt` | Date | Mongoose timestamps |
 
-Password format: `scrypt$N$r$p$<saltBase64>$<hashBase64>` with N=16384, r=8,
-p=1, 16-byte salt, 64-byte derived key. See
-[08-security.md](08-security.md#2-password-storage).
+Password format: `scrypt$N$r$p$<saltBase64>$<hashBase64>` with N=65536, r=8,
+p=2, 16-byte salt, 64-byte derived key. Parameters are stored with each hash,
+so weaker hashes remain verifiable and are upgraded on the next sign-in. See
+[08-security.md](08-security.md#1-authentication).
 
 The JSON transform removes `passwordHash`, `_id` and `__v`, and exposes `id`.
 

@@ -25,7 +25,7 @@ claims can be checked live. Numbers are the measured ones.
 >
 > Auth is scrypt plus opaque session tokens stored as SHA-256 hashes, and every
 > query is scoped by the session's user id. The test suite starts its own server,
-> runs 254 assertions across three suites, and includes cross-user attempts that
+> runs 271 assertions across three suites, and includes cross-user attempts that
 > must return 404.
 
 ## 2. Architecture
@@ -58,11 +58,21 @@ for a second account.
 
 **Q: Walk me through password storage.**
 
-`crypto.scryptSync` with N=16384, r=8, p=1, a 16-byte random salt and a 64-byte
+`crypto.scryptSync` with N=2¹⁶, r=8, p=2, a 16-byte random salt and a 64-byte
 key. Stored as `scrypt$N$r$p$salt$hash` — self-describing, so the parameters can
-be raised later and old hashes upgraded on login. Verification uses
-`timingSafeEqual`. For an unknown email I still verify against a dummy hash, so
-response time does not reveal whether the account exists.
+be raised and old hashes are upgraded after a successful sign-in (the stored
+parameters are read back first). Verification uses `timingSafeEqual`. For an
+unknown email I verify against a real dummy hash generated at startup with the
+same parameters, and failed responses are floored at 400 ms so an account still
+on the older, faster parameters cannot be identified by timing.
+
+**Q: How is the demo account protected?**
+
+There is no demo account unless someone runs `node seed-demo.js --yes` against a
+development server. The script refuses without the flag, refuses in production
+(locally and by checking `/api/health`), and refuses while legacy adoption is on.
+It generates a random password and prints it once instead of shipping a default,
+and the demo user is an ordinary account scoped by its own `userId`.
 
 **Q: Why sessions instead of JWT?**
 
@@ -191,7 +201,7 @@ A `close` listener settles the promise so an `await` cannot hang.
 **Q: How do you run the tests?**
 
 `cd server && npm test`. The runner executes 97 static checks, starts a dedicated
-server on port 3100, waits for `/api/health`, runs 91 workspace assertions and 66
+server on port 3100, waits for `/api/health`, runs 91 workspace assertions and 83
 auth/isolation assertions, then sends SIGTERM and checks the graceful shutdown.
 
 **Q: Why a separate instance?**

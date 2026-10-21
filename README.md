@@ -168,7 +168,7 @@ MongoDB
 | Vanilla JS (ES modules) | Page logic and shared components, no framework or build |
 | CSS custom properties | Design tokens, layout, responsive rules, no preprocessor |
 | Native `<dialog>` | Accessible confirmation and typed-confirmation flows |
-| Node's test scripts | 254 assertions across three dependency-free suites |
+| Node's test scripts | 271 assertions across three dependency-free suites |
 
 Deeper design notes: [docs/03-architecture.md](docs/03-architecture.md).
 
@@ -193,11 +193,11 @@ careerflow/
 ├── settings.html           # Preferences, import/export, account
 │
 ├── start.bat / stop.bat    # One-click launch helpers
-├── seed-demo.js            # Seeds the demo account, applications and rounds
+├── seed-demo.js            # Development-only demo seeder (explicit --yes, no default password)
 ├── test-runner.js          # `npm test`: starts a temporary server, runs all suites
 ├── test-static.js          # Module syntax, imports and asset references (97 checks)
 ├── test-suite.js           # Workspace API tests (91 assertions)
-├── test-auth.js            # Auth, routing, rate-limit & isolation tests (66 assertions)
+├── test-auth.js            # Auth, hashing, routing, rate-limit & isolation tests (83 assertions)
 ├── docs/                   # 00-audit … 14-interview-prep
 │
 ├── css/
@@ -274,8 +274,10 @@ run the app and open these routes at 1440×900 (desktop) and 390×844 (mobile):
 | Interview Prep | `/interview-prep` | Round cards, checklist progress, outcome tracking |
 | Settings | `/settings` | CSV/JSON export, import validation, delete flows |
 
-The demo account (`node seed-demo.js`) fills every page with ten applications
-and six interview rounds, which is the state the screenshots should show.
+The demo seeder (`node seed-demo.js --yes`) fills every page with ten
+applications and six interview rounds, which is the state the screenshots
+should show. It prints a generated password once; no demo password is stored
+in the repository.
 Suggested asset names if you add them: `docs/screenshots/dashboard.png`,
 `applications.png`, `pipeline.png`, `calendar.png`, `analytics.png`.
 
@@ -359,12 +361,14 @@ Every dropdown is a shared component (`js/dropdown.js`) rather than a native `<s
 
 Real authentication — not a mock.
 
-- **Password hashing:** Node's built-in `scrypt` (OWASP-recommended, memory-hard) with a random 16-byte salt and timing-safe comparison. No plaintext is ever stored or logged.
+- **Password hashing:** Node's built-in `scrypt` with N=2¹⁶, r=8, p=2 (OWASP Password Storage guidance), a random 16-byte salt, a 64-byte key, and timing-safe comparison. Hashes store their parameters, so weaker hashes are upgraded automatically on the next successful sign-in. No plaintext is ever stored or logged.
 - **Sessions:** a random 256-bit token is issued in an `HttpOnly`, `SameSite=Lax` cookie. Only the SHA-256 hash of the token is stored in MongoDB, with a TTL index for expiry. A database leak cannot be replayed as a valid session.
 - **Per-user isolation:** every application and interview query is scoped by `req.user._id`, enforced server-side. Ownership is never trusted from the client, and it cannot be reassigned through the API.
 - **Logout** destroys the session server-side and clears the cookie.
 - **Rate limiting:** failed sign-ins are capped at 5 per 15 minutes per address+email, with a coarser 100 per 15 minutes per network, and registrations at 60 per hour per network. Blocked requests receive `429` with `Retry-After`. A correct password clears that account's failure budget. Counters are in-process, so they reset on restart and are per instance — a multi-instance deployment would need a shared store.
+- **No account enumeration on sign-in:** an unknown email is verified against a real dummy hash, and failed responses are floored at 400 ms, so neither the message nor the timing distinguishes a missing account from a wrong password.
 - **Legacy data:** records created before accounts existed are **not** adopted by default. The one-time migration runs only when an operator sets `ALLOW_LEGACY_ADOPTION=true`, because on a shared database it would hand one person another person's records.
+- **Demo data:** seeding is a standalone, explicit, development-only script. It refuses without `--yes`, refuses in production, refuses when legacy adoption is enabled, and generates a one-time password instead of shipping a default credential. The demo user is an ordinary account and can only see the records it created.
 - **Deleting an account** removes the user, their applications, their interview rounds, and their sessions.
 
 Password reset, email verification, and third-party OAuth are **not implemented** and are not shown in the UI.
@@ -451,14 +455,14 @@ The runner (`test-runner.js`) waits for `/api/health` before running anything, s
 
 ```bash
 node test-static.js    # syntax, import/export resolution, asset paths (97 checks, no server)
-node test-suite.js    # workspace API (91 assertions) — against an already-running server
-node test-auth.js     # auth, routing, rate limiting, isolation (66 assertions)
-node seed-demo.js     # optional: a demo account with 10 applications + 6 interview rounds
+node test-suite.js     # workspace API (91 assertions) — against an already-running server
+node test-auth.js      # auth, hashing, routing, rate limiting, isolation (83 assertions)
+node seed-demo.js --yes  # dev only: disposable demo data; prints a generated password
 ```
 
 Set `BASE_URL` to point the suites at another host, or `TEST_PORT` to change the runner's port.
 
-`seed-demo.js` creates `demo@careerflow.app` / `careerflow2026` so every page can be explored with realistic data.
+The demo seeder is opt-in, refuses to run with `NODE_ENV=production` (or against a server that reports production or legacy adoption), and never contains a default password. It creates `demo@careerflow.app` with a generated password shown once; set `DEMO_PASSWORD` only to re-seed an existing demo account. The demo user is isolated like any other account.
 
 **Verified results**
 

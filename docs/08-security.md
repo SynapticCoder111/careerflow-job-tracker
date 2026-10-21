@@ -11,9 +11,11 @@ implemented, where, and what remains out of scope.
 
 | Control | Implementation |
 |---|---|
-| Password storage | scrypt (N=16384, r=8, p=1), 16-byte random salt, 64-byte key, stored as `scrypt$N$r$p$salt$hash` |
+| Password storage | scrypt (N=65536, r=8, p=2 — 64 MiB, two iterations), 16-byte random salt, 64-byte key, stored as `scrypt$N$r$p$salt$hash` |
 | Verification | `crypto.timingSafeEqual` on the derived keys |
-| Unknown-email timing | A dummy hash is verified even when the user does not exist, so the response time does not reveal whether an email is registered |
+| Unknown-email timing | One real dummy hash is generated at startup with the current parameters and verified when the account does not exist, so both paths perform the same scrypt work |
+| Failure timing floor | Failed sign-ins return no sooner than 400 ms, so accounts still on a faster legacy hash cannot be distinguished by response time |
+| Hash upgrades | Parameters are read from each stored hash; a successful sign-in re-hashes with current parameters when they differ |
 | Password policy | ≥ 8 characters, at least one letter and one digit |
 | Password exposure | `passwordHash` is `select: false` and stripped by the JSON transform; no log line prints it |
 | Session token | 32 random bytes (256 bits), base64url |
@@ -24,9 +26,14 @@ implemented, where, and what remains out of scope.
 | Account deletion | Sessions, applications, rounds and the user are removed |
 
 Why scrypt rather than bcrypt/argon2: it is built into Node, is memory-hard, and
-avoids a native build dependency. The parameters are OWASP-compatible. A future
-upgrade path is to parse the stored parameters during verification, so old
-hashes can be rewritten on next login — the format already carries them.
+avoids a native build dependency. The parameters follow the OWASP Password
+Storage Cheat Sheet configuration N=2¹⁶, r=8, p=2. Because each hash stores its
+own parameters, raising them does not invalidate existing passwords: the old
+parameters are read back and the hash is rewritten on the next successful
+sign-in. Arithmetic cost is roughly 300 ms per verification on a development
+machine; `scryptSync` therefore blocks the event loop for that long, a trade-off
+that the rate limiter bounds and that a high-traffic deployment should revisit
+by moving to the asynchronous `crypto.scrypt` with a bounded worker pool.
 
 ## 2. Authorisation
 
@@ -161,6 +168,10 @@ that contains only trusted markup and already-escaped values.
 6. `DELETE /api/applications` without a body → `400 CONFIRMATION_REQUIRED`.
 7. Inspect the `Set-Cookie` header in production → `HttpOnly`, `SameSite=Lax`,
    `Secure`.
+8. Run `node seed-demo.js` without `--yes` → exit 1 and no request is made.
+9. Run `NODE_ENV=production node seed-demo.js --yes` → exit 1.
+10. Inspect `/api/health` → `environment` and `demoSeedingAllowed` describe the
+    policy, and `demoSeedingAllowed` is `false` in production.
 
 ## 11. Known gaps
 
@@ -174,3 +185,28 @@ that contains only trusted markup and already-escaped values.
 | In-memory rate limits | Per instance, reset on restart | Shared store (Redis/Mongo) |
 | No audit log for reads | Cannot reconstruct who viewed what | Out of scope for a personal tracker |
 | Legacy adoption flag | If enabled on a shared database, the first registration could adopt ownerless rows | Off by default; remove after a one-time migration |
+
+## 12. Demo data
+
+There is no demo account unless someone creates one deliberately. The server
+never seeds on startup, and a fresh database contains no users.
+
+`seed-demo.js` is a standalone operator script with four independent guards:
+
+| Guard | Behaviour |
+|---|---|
+| Opt-in | Exits 1 unless `--yes` is passed |
+| Production (local) | Exits 1 when `NODE_ENV=production` |
+| Production (server) | Reads `/api/health`; exits 1 when the target reports `environment: "production"` |
+| Legacy adoption | Exits 1 when `ALLOW_LEGACY_ADOPTION=true`, locally or on the server, because the new account could otherwise claim ownerless records |
+
+The password is not built into the repository. If `DEMO_PASSWORD` is unset, the
+script generates ~28 characters (72+ bits) and prints it once; it is never
+written to `.env`, a log file, or the database in plaintext. Re-seeding an
+existing demo account requires providing its password explicitly.
+
+The demo user is an ordinary `users` document. Seeding signs in as that user and
+uses the normal, `userId`-scoped API, so it can only delete and create its own
+records. It has no elevated role, no access to other accounts, and no way to
+enumerate them. Demo data should still be treated as disposable: do not use a
+personal password, and do not seed a production database.

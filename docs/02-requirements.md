@@ -114,7 +114,9 @@ the code or test that proves it. Anything not listed here is out of scope (see
 
 A reviewer can, in one session:
 
-1. Open `/`, read the product explanation, and sign in with the demo account.
+1. Open `/`, read the product explanation, and sign in with the demo account
+   (seed it once with `node seed-demo.js --yes`; the generated password is
+   printed and not stored anywhere).
 2. See the demo workspace: 10 applications, 6 interview rounds.
 3. Create an application; it appears in the list, pipeline, companies and
    dashboard counts.
