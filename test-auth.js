@@ -5,6 +5,7 @@ const { spawnSync } = require('child_process');
 const { hashPassword, verifyPassword, needsRehash } = require('./server/utils/password');
 
 const BASE = process.env.BASE_URL || 'http://localhost:3000';
+const PASSWORD = 'test-only-' + crypto.randomBytes(6).toString('hex') + '-1a';
 let pass = 0, fail = 0;
 const check = (name, cond, extra) => {
   if (cond) { pass++; console.log('  PASS  ' + name); }
@@ -58,7 +59,7 @@ async function main() {
   const email = `alex.${Date.now()}@example.com`;
   const reg = await fetch(BASE + '/api/auth/register', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: 'Alex Sharma', email, password: 'careerflow2026' })
+    body: JSON.stringify({ name: 'Alex Sharma', email, password: PASSWORD })
   });
   const regBody = await reg.json();
   capture(reg, c1);
@@ -71,7 +72,7 @@ async function main() {
   // Duplicate email
   const dup = await fetch(BASE + '/api/auth/register', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: 'Alex Again', email, password: 'careerflow2026' })
+    body: JSON.stringify({ name: 'Alex Again', email, password: PASSWORD })
   });
   const dupBody = await dup.json();
   check('duplicate email returns 409', dup.status === 409, dup.status);
@@ -107,7 +108,7 @@ async function main() {
   const email2 = `sam.${Date.now()}@example.com`;
   await fetch(BASE + '/api/auth/register', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: 'Sam Lee', email: email2, password: 'careerflow2026' })
+    body: JSON.stringify({ name: 'Sam Lee', email: email2, password: PASSWORD })
   }).then(r => capture(r, c2));
 
   const u2List = await (await fetch(BASE + '/api/applications', { headers: headers(c2) })).json();
@@ -190,7 +191,7 @@ async function main() {
   const c3 = jar();
   const good = await fetch(BASE + '/api/auth/login', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password: 'careerflow2026' })
+    body: JSON.stringify({ email, password: PASSWORD })
   });
   capture(good, c3);
   check('correct credentials return 200', good.status === 200, good.status);
@@ -229,14 +230,14 @@ async function main() {
 
   // A correct password resets that account's failed-attempt budget.
   for (let i = 0; i < 3; i++) await tryLogin(email, 'wrong-password');
-  const goodAgain = await tryLogin(email, 'careerflow2026');
+  const goodAgain = await tryLogin(email, PASSWORD);
   check('correct password still signs in during the window', goodAgain.status === 200, goodAgain.status);
   check('successful sign-in clears the failure budget', (await tryLogin(email, 'wrong-password')).status === 401);
 
   console.log('\n=== 8. PASSWORD STORAGE AND COOKIE FLAGS ===');
   // Verify via the API that the stored hash is not the plaintext
   const leaked = await (await fetch(BASE + '/api/auth/me', { headers: headers(c1) })).text();
-  check('plaintext password never appears in a response', !leaked.includes('careerflow2026'));
+  check('plaintext password never appears in a response', !leaked.includes(PASSWORD));
 
   const hash = hashPassword('unit-password-1');
   check('hash uses the current scrypt parameters', /^scrypt\$65536\$8\$2\$/.test(hash), hash.split('$').slice(0, 4).join('$'));

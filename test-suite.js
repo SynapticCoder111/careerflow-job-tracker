@@ -3,6 +3,7 @@
  * Registers a test account, then exercises every endpoint as that user.
  * Requires the server to be running.
  */
+const crypto = require('crypto');
 const BASE = process.env.BASE_URL || 'http://localhost:3000';
 let pass = 0, fail = 0;
 const check = (name, cond, extra) => {
@@ -11,7 +12,7 @@ const check = (name, cond, extra) => {
 };
 
 const EMAIL = `suite.${Date.now()}@example.com`;
-const PASSWORD = 'careerflow2026';
+const PASSWORD = 'test-only-' + crypto.randomBytes(6).toString('hex') + '-1a';
 let cookie = '';
 
 async function api(path, options = {}) {
