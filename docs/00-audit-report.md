@@ -783,3 +783,10 @@ demo-seeding refusals.
 - The production refusal is tested locally; the server-reported production check
   is implemented and covered by reading `/api/health`, but no real production
   deployment was used to exercise it.
+- The retired demo-only password is absent from `HEAD`, but it remains in the
+  history of commits `ffc3469`, `e46d7fd` and `5c72efe`, where it was hardcoded.
+  It was a documented demo value, never a production credential, and no real
+  user data was protected by it. Removing it from history needs a rewrite and a
+  force-push, which was not authorised. Treat it as retired; rotate any local
+  demo account that still uses it. A public release should be treated as
+  exposing that old demo value.
