@@ -1,8 +1,49 @@
 # CareerFlow — Your Career, Organized
 
-A premium job-search workspace for students, graduates, and professionals. Organise every application, track interview stages, plan follow-ups, prepare for each round, and see exactly how far you've come — with real data, behind a real account.
+A full-stack job-application tracker for students, graduates, and career
+changers who apply to many roles at once and lose track of where each one
+stands. CareerFlow keeps every application, interview round, follow-up, and
+deadline in one workspace, and shows only metrics that can be derived from the
+records you actually entered.
 
 **Stack:** Node.js · Express · Mongoose · MongoDB Atlas · Vanilla JS (ES modules) · CSS design system
+
+---
+
+## The problem
+
+A job search lives in five places at once: a spreadsheet, the browser's
+bookmarks, an inbox, a notes app, and memory. After thirty applications nobody
+can answer basic questions — which follow-ups are overdue, which interview is
+next, which companies have gone quiet — without rebuilding the spreadsheet.
+
+CareerFlow replaces that with one authenticated workspace: a pipeline, a
+calendar built from real interview rounds, a preparation area, and analytics
+whose definitions are fixed on the server. It deliberately does not show
+invented statistics, fake activity, or a "time to offer" number when no offer
+timestamp exists.
+
+**Intended users:** individual job seekers managing their own search. It is not
+a recruiting CRM and has no shared workspaces.
+
+---
+
+## Prerequisites
+
+| Requirement | Why |
+|---|---|
+| Node.js 18 or newer | `fetch` in the tests, `crypto.scrypt`, ES modules in the browser |
+| npm (bundled with Node) | Installs four server dependencies |
+| MongoDB 6+ — local or Atlas | The only data store; the server will not start without it |
+| A modern browser | ES modules, `<dialog>`, `fetch` |
+| Windows (optional) | `start.bat` / `stop.bat` are convenience scripts; the manual commands work on any OS |
+
+Check your versions:
+
+```bash
+node --version   # v18 or newer
+npm --version
+```
 
 ---
 
@@ -30,8 +71,12 @@ npm start
 
 ## Configuration
 
-Create `server/.env` (already present in this repo, and git-ignored). A
-commented template lives at `server/.env.example`.
+Create `server/.env` in your clone. It is git-ignored and is **not** part of the
+repository; start from the committed template:
+
+```bash
+cp server/.env.example server/.env    # Windows: copy server\.env.example server\.env
+```
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
@@ -56,6 +101,76 @@ origin must reach the API; if it is unset in production, no cross-origin access
 is granted rather than reflecting any caller.
 
 > **Security note:** `.env` contains your database credentials and is excluded from version control by `.gitignore`. Never commit it, never place it in frontend code, and never share it publicly.
+
+### MongoDB Atlas setup
+
+Local MongoDB works with `MONGODB_URI=mongodb://127.0.0.1:27017/careerflow`.
+For Atlas:
+
+1. Create a free cluster at <https://www.mongodb.com/atlas>.
+2. **Database Access** → add a user with *Read and write to any database* on
+   this database only (not an admin user).
+3. **Network Access** → add the narrowest address range that can reach it. For
+   a hosted backend, use the platform's egress addresses; for local
+   development, add your own IP rather than `0.0.0.0/0`.
+4. **Cluster → Connect → Drivers** → copy the `mongodb+srv://…` string.
+5. Replace `<password>` with the database user's password, and URL-encode
+   special characters (`@` → `%40`, `:` → `%3A`, `/` → `%2F`).
+6. Put the finished string in `server/.env` as `MONGODB_URI`. Never paste it
+   into the README, a screenshot, or frontend code.
+7. Start the server. Collections and indexes are created on first write; there
+   is no migration step.
+
+To stop the demo seed from touching real data, point `MONGODB_URI` at a
+dedicated database name, for example `…/careerflow-demo`.
+
+---
+
+## Architecture
+
+One Express process serves the JSON API and the pages; there is no separate
+frontend host, bundler, or build step.
+
+```text
+browser (static HTML + ES modules)
+   │  same-origin fetch + HttpOnly session cookie
+   ▼
+Express 5 (server/server.js)
+   ├── /api/auth           register · login · logout · me · delete account
+   ├── /api/applications   CRUD · filters · pagination · history · bulk delete
+   ├── /api/interviews     rounds · checklist
+   ├── /api/analytics      aggregates with explicit denominators
+   ├── page routes         / · /login · /register · 8 private pages
+   └── static allowlist    /css/* · /js/*
+   ▼
+MongoDB
+   users · sessions · applications · interviews
+```
+
+- **Static allowlist** — only `/css` and `/js` are mounted. HTML is reachable
+  solely through explicit page routes, so backend source, tests, seed scripts,
+  documentation, and `.env` are not downloadable.
+- **Authentication** — scrypt password hashes, opaque 256-bit session tokens
+  stored as SHA-256 hashes, `HttpOnly` `SameSite=Lax` cookie.
+- **Authorisation** — `userId` comes from the session and is part of every
+  private query filter. A foreign record returns `404`, not `403`.
+- **Definitions live on the server** — analytics, status history, and calendar
+  dates are computed or written in one place and rendered by the client.
+
+### Technology stack
+
+| Technology | Role in this project |
+|---|---|
+| Node.js 18+ | Runtime; built-in `crypto.scrypt`, test `fetch` |
+| Express 5 | HTTP routing, static mounts, page routes, JSON errors |
+| Mongoose 9 | Schemas, enums, validation, indexes, JSON transforms |
+| MongoDB | Stores users, sessions, applications, and interview rounds |
+| Vanilla JS (ES modules) | Page logic and shared components, no framework or build |
+| CSS custom properties | Design tokens, layout, responsive rules, no preprocessor |
+| Native `<dialog>` | Accessible confirmation and typed-confirmation flows |
+| Node's test scripts | 254 assertions across three dependency-free suites |
+
+Deeper design notes: [docs/03-architecture.md](docs/03-architecture.md).
 
 ---
 
@@ -140,6 +255,29 @@ careerflow/
 | `/settings` | Private | Preferences, CSV export/import, JSON backup, delete data or account |
 
 Private pages redirect to `/login` when signed out. Private APIs return `401`.
+
+---
+
+## Screenshots
+
+Screenshots are not committed. The interface changes faster than images age, and
+a screenshot cannot show keyboard behaviour or focus handling. To review it,
+run the app and open these routes at 1440×900 (desktop) and 390×844 (mobile):
+
+| Screen | Route | What to look for |
+|---|---|---|
+| Dashboard | `/dashboard` | Stat cards, activity chart, upcoming interviews, attention list |
+| Applications | `/applications` | Table, filters, status dropdown, detail modal with timeline |
+| Pipeline | `/pipeline` | Seven status columns, keyboard-operable cards |
+| Calendar | `/calendar` | Month grid, agenda, interview rounds merged with legacy dates |
+| Analytics | `/analytics` | Rates with denominators, empty states, breakdowns |
+| Interview Prep | `/interview-prep` | Round cards, checklist progress, outcome tracking |
+| Settings | `/settings` | CSV/JSON export, import validation, delete flows |
+
+The demo account (`node seed-demo.js`) fills every page with ten applications
+and six interview rounds, which is the state the screenshots should show.
+Suggested asset names if you add them: `docs/screenshots/dashboard.png`,
+`applications.png`, `pipeline.png`, `calendar.png`, `analytics.png`.
 
 ---
 
@@ -369,14 +507,57 @@ Set `BASE_URL` to point the suites at another host, or `TEST_PORT` to change the
 
 ## Deployment
 
+**Status: not deployed.** No public URL is claimed. The steps below are the
+procedure this code expects.
+
 The frontend and backend are served by the same Express process, so a single host works:
 
-1. Set `MONGODB_URI`, `PORT` and `NODE_ENV=production` as environment variables. Add `ALLOWED_ORIGIN` only if the frontend is served from a different origin.
-2. Run `npm install --omit=dev` in `server/`
+1. Set `MONGODB_URI`, `PORT` and `NODE_ENV=production` as environment variables. Add `ALLOWED_ORIGIN` only if the frontend is served from a different origin. Never put the connection string in a build command or a committed file.
+2. Run `npm ci --omit=dev` in `server/` (or `npm install --omit=dev` when there is no lockfile).
 3. Start with `npm start`. The process connects to MongoDB **before** it listens; if the database is unreachable it exits with a non-zero code instead of accepting requests it cannot serve.
-4. Point your domain/proxy at the app and serve over HTTPS
+4. Point your domain/proxy at the app and serve over HTTPS. With `NODE_ENV=production` the session cookie is marked `Secure`, so plain HTTP would silently fail to keep a session — which is the correct failure.
+5. Set the platform health check to `GET /api/health`. It returns `200` only while the process is serving.
 
-Behind a reverse proxy, set `TRUST_PROXY=true` so `req.ip` reflects the client and rate limiting works. `SIGINT`/`SIGTERM` close the HTTP listener and the database connection before exit.
+Behind a reverse proxy, set `TRUST_PROXY=true` so `req.ip` reflects the client and rate limiting works. `SIGINT`/`SIGTERM` close the HTTP listener and the database connection before exit, which is what makes rolling restarts safe.
+
+Full procedure, including systemd, nginx, and Docker examples:
+[docs/11-deployment.md](docs/11-deployment.md).
+
+---
+
+## Known limitations
+
+These are scope decisions and infrastructure gaps, documented rather than hidden.
+The full list with the fix each one needs is in
+[docs/12-limitations.md](docs/12-limitations.md).
+
+| Area | Limitation |
+|---|---|
+| Email | No verification, password reset, or reminders — there is no email provider |
+| Accounts | No OAuth, SSO, or MFA |
+| Security headers | No Content-Security-Policy; inline module scripts would need nonces |
+| CSRF | Relies on `SameSite=Lax`, JSON bodies, and CORS rather than a token |
+| Rate limiting | In-memory: per process, reset on restart, not shared across instances |
+| Scale | Analytics load the user's documents; aggregates page through 100-row responses |
+| Search | Substring regex without a text index |
+| History | Status history keeps the last 100 transitions |
+| Deletes | No soft delete or undo |
+| Testing | No browser automation or visual regression suite |
+| Deployment | No CI, metrics, or alerting; `/api/health` is the only probe |
+
+---
+
+## Future improvements
+
+In the order that would add the most value without changing the architecture:
+
+1. **Playwright journeys** for the flows currently verified by hand (CRUD, dialogs, calendar merging).
+2. **Server-side aggregation** for analytics and a streaming export, removing the client's page-walking at large record counts.
+3. **Email verification and password reset**, which also removes the deliberate `409` account-enumeration trade-off.
+4. **A shared rate-limit store** before running more than one instance.
+5. **CSP with nonces** for the inline module scripts.
+6. **Soft delete and restore** for applications and rounds.
+7. **Attachments** for résumés and cover letters via object storage with signed URLs.
 
 ---
 
